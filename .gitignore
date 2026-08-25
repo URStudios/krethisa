@@ -1,0 +1,7 @@
+# Keep the original full-size personal media local.
+MVI_*.MP4
+WhatsApp Image *.jpeg
+
+# Operating-system clutter.
+Thumbs.db
+.DS_Store

@@ -1,1249 +1,479 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Krethisa 🌸</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;500;600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --pink: #ff6b9d;
-    --rose: #ff4d8d;
-    --peach: #ffb3c6;
-    --lavender: #c77dff;
-    --mint: #80ffdb;
-    --gold: #ffd166;
-    --cream: #fff9f0;
-    --deep: #2d1b3d;
-    --soft-purple: #e8d5ff;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Quicksand', sans-serif;
-    background: var(--cream);
-    color: var(--deep);
-    overflow-x: hidden;
-    cursor: none;
-  }
-
-  /* Custom cursor */
-  .cursor {
-    width: 20px; height: 20px;
-    background: var(--pink);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s, background 0.3s, width 0.2s, height 0.2s;
-    mix-blend-mode: multiply;
-  }
-
-  /* ===== FLOATING HEARTS BACKGROUND ===== */
-  .hearts-bg {
-    position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-  }
-
-  .heart-float {
-    position: absolute;
-    font-size: 1.2rem;
-    animation: floatUp linear infinite;
-    opacity: 0;
-  }
-
-  @keyframes floatUp {
-    0% { transform: translateY(110vh) rotate(0deg); opacity: 0.7; }
-    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-  }
-
-  /* ===== NAV ===== */
-  nav {
-    position: fixed; top: 0; width: 100%;
-    padding: 14px 30px;
-    display: flex; justify-content: space-between; align-items: center;
-    z-index: 100;
-    background: rgba(255,249,240,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,107,157,0.2);
-  }
-
-  .nav-logo {
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.6rem;
-    color: var(--rose);
-  }
-
-  .nav-links {
-    display: flex; gap: 22px; list-style: none;
-    flex-wrap: wrap;
-  }
-
-  .nav-links a {
-    font-size: 0.8rem; font-weight: 600;
-    text-decoration: none;
-    color: var(--deep);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-
-  .nav-links a:hover { color: var(--rose); }
-
-  /* ===== HERO ===== */
-  #hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    padding: 100px 20px 60px;
-    position: relative;
-    background: linear-gradient(160deg, #fff0f7 0%, #f5e6ff 40%, #e6f0ff 80%, #e6fff8 100%);
-  }
-
-  .hero-date-badge {
-    background: white;
-    border: 2px solid var(--peach);
-    border-radius: 50px;
-    padding: 8px 22px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--rose);
-    margin-bottom: 30px;
-    animation: popIn 0.6s cubic-bezier(0.175,0.885,0.32,1.275) both;
-  }
-
-  .hero-title {
-    font-family: 'Dancing Script', cursive;
-    font-size: clamp(3rem, 8vw, 6rem);
-    color: var(--rose);
-    line-height: 1.1;
-    animation: popIn 0.7s 0.1s cubic-bezier(0.175,0.885,0.32,1.275) both;
-    text-shadow: 3px 3px 0px rgba(255,107,157,0.2);
-  }
-
-  .hero-sub {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: clamp(1rem, 3vw, 1.4rem);
-    color: var(--lavender);
-    margin-top: 14px;
-    animation: popIn 0.7s 0.2s cubic-bezier(0.175,0.885,0.32,1.275) both;
-  }
-
-  /* ===== COUNTER SECTION ===== */
-  #counter {
-    padding: 80px 20px;
-    text-align: center;
-    background: linear-gradient(135deg, #ff6b9d22, #c77dff22, #80ffdb22);
-    position: relative;
-  }
-
-  .section-title {
-    font-family: 'Dancing Script', cursive;
-    font-size: clamp(2rem, 5vw, 3rem);
-    color: var(--rose);
-    margin-bottom: 10px;
-  }
-
-  .section-sub {
-    font-size: 0.9rem;
-    color: #888;
-    margin-bottom: 40px;
-    font-style: italic;
-  }
-
-  .counter-grid {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-
-  .counter-card {
-    background: white;
-    border-radius: 24px;
-    padding: 30px 24px;
-    min-width: 140px;
-    box-shadow: 0 8px 30px rgba(255,107,157,0.15);
-    transition: transform 0.3s, box-shadow 0.3s;
-    border: 2px solid transparent;
-    animation: popIn 0.6s cubic-bezier(0.175,0.885,0.32,1.275) both;
-  }
-
-  .counter-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 40px rgba(255,107,157,0.25);
-    border-color: var(--peach);
-  }
-
-  .counter-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--rose);
-    line-height: 1;
-  }
-
-  .counter-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #aaa;
-    margin-top: 6px;
-  }
-
-  /* ===== DAILY MESSAGE ===== */
-  #daily {
-    padding: 80px 20px;
-    text-align: center;
-    background: white;
-    position: relative;
-  }
-
-  .message-card {
-    max-width: 600px;
-    margin: 0 auto;
-    background: linear-gradient(135deg, #fff0f7, #f5e6ff);
-    border-radius: 30px;
-    padding: 50px 40px;
-    box-shadow: 0 10px 40px rgba(199,125,255,0.15);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .message-card::before {
-    content: '✨';
-    position: absolute;
-    font-size: 5rem;
-    opacity: 0.07;
-    top: -10px; right: 10px;
-  }
-
-  .message-icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    animation: bounce 2s ease-in-out infinite;
-  }
-
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-
-  .message-text {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-    font-style: italic;
-    color: var(--deep);
-    line-height: 1.7;
-    margin-bottom: 20px;
-  }
-
-  .message-from {
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.3rem;
-    color: var(--rose);
-  }
-
-  .refresh-btn {
-    margin-top: 28px;
-    padding: 12px 30px;
-    background: linear-gradient(135deg, var(--rose), var(--lavender));
-    color: white;
-    border: none;
-    border-radius: 50px;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 20px rgba(255,107,157,0.3);
-  }
-
-  .refresh-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 30px rgba(255,107,157,0.4);
-  }
-
-  .message-day-tag {
-    display: inline-block;
-    background: var(--gold);
-    color: var(--deep);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    padding: 5px 14px;
-    border-radius: 50px;
-    margin-bottom: 22px;
-    text-transform: uppercase;
-  }
-
-  /* ===== LETTER SECTION ===== */
-  #letter {
-    padding: 80px 20px;
-    background: linear-gradient(160deg, #f5e6ff 0%, #fff0f7 100%);
-  }
-
-  .letter-wrapper {
-    max-width: 680px;
-    margin: 0 auto;
-  }
-
-  .letter-paper {
-    background: #fffef8;
-    border-radius: 4px;
-    padding: 50px 50px 60px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 20px 60px rgba(199,125,255,0.12),
-                4px 4px 0 0 #f0d9ff, 8px 8px 0 0 #e8d5ff;
-    position: relative;
-    border-top: 4px solid var(--lavender);
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    line-height: 1.9;
-    font-size: clamp(0.95rem, 2vw, 1.05rem);
-    color: #3d2c4e;
-  }
-
-  .letter-paper::before {
-    content: '';
-    position: absolute;
-    left: 60px; top: 0; bottom: 0;
-    width: 1px;
-    background: rgba(255,107,157,0.2);
-  }
-
-  .letter-greeting {
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.8rem;
-    font-style: normal;
-    color: var(--rose);
-    margin-bottom: 20px;
-  }
-
-  .letter-sign {
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.6rem;
-    color: var(--lavender);
-    margin-top: 30px;
-    font-style: normal;
-  }
-
-  /* ===== AFFIRMATIONS WALL ===== */
-  #affirmations {
-    padding: 80px 20px;
-    background: white;
-    text-align: center;
-  }
-
-  .affirmation-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .affirmation-tile {
-    border-radius: 20px;
-    padding: 28px 20px;
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: var(--deep);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: default;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .affirmation-tile::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,0.15);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .affirmation-tile:hover { transform: scale(1.03) rotate(-1deg); }
-  .affirmation-tile:hover::after { opacity: 1; }
-
-  .tile-icon { font-size: 1.8rem; margin-bottom: 10px; }
-
-  /* ===== GAME: CLICK THE HEARTS ===== */
-  #game {
-    padding: 80px 20px;
-    background: linear-gradient(135deg, #1a0828, #2d1b3d);
-    text-align: center;
-    color: white;
-  }
-
-  #game .section-title { color: var(--gold); }
-  #game .section-sub { color: rgba(255,255,255,0.5); }
-
-  .game-area {
-    width: 100%;
-    max-width: 500px;
-    height: 340px;
-    margin: 0 auto 20px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 24px;
-    border: 2px solid rgba(255,107,157,0.3);
-    position: relative;
-    overflow: hidden;
-    cursor: crosshair;
-  }
-
-  .game-heart {
-    position: absolute;
-    font-size: 2rem;
-    cursor: pointer;
-    transition: transform 0.1s;
-    user-select: none;
-    animation: heartPulse 0.8s ease-in-out infinite;
-  }
-
-  @keyframes heartPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-  }
-
-  .game-heart:hover { transform: scale(1.3); }
-
-  .game-stats {
-    display: flex; justify-content: center; gap: 40px;
-    margin-bottom: 20px;
-    font-size: 1rem;
-  }
-
-  .stat-item strong {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    color: var(--gold);
-    display: block;
-  }
-
-  .game-btn {
-    padding: 12px 36px;
-    background: linear-gradient(135deg, var(--rose), var(--lavender));
-    color: white;
-    border: none;
-    border-radius: 50px;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 20px rgba(255,107,157,0.4);
-    letter-spacing: 1px;
-  }
-
-  .game-btn:hover { transform: scale(1.05); }
-
-  /* ===== PHOTO / MEMORY TIMELINE ===== */
-  #memories {
-    padding: 80px 20px;
-    background: var(--cream);
-  }
-
-  .timeline {
-    max-width: 600px;
-    margin: 0 auto;
-    position: relative;
-  }
-
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 20px; top: 0; bottom: 0;
-    width: 2px;
-    background: linear-gradient(to bottom, var(--rose), var(--lavender), var(--mint));
-  }
-
-  .timeline-item {
-    padding: 0 0 40px 55px;
-    position: relative;
-  }
-
-  .timeline-dot {
-    position: absolute;
-    left: 9px; top: 0;
-    width: 24px; height: 24px;
-    border-radius: 50%;
-    background: var(--rose);
-    border: 3px solid white;
-    box-shadow: 0 0 0 3px var(--peach);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.7rem;
-  }
-
-  .timeline-card {
-    background: white;
-    border-radius: 18px;
-    padding: 22px 26px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-    border-left: 4px solid var(--peach);
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-
-  .timeline-card:hover {
-    transform: translateX(6px);
-    box-shadow: 0 8px 30px rgba(255,107,157,0.15);
-  }
-
-  .timeline-date {
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--rose);
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-
-  .timeline-text {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: var(--deep);
-  }
-
-  /* ===== SURPRISE BUTTON ===== */
-  #surprise {
-    padding: 80px 20px;
-    background: linear-gradient(135deg, #fff0f7, #f0e6ff, #e6f0ff);
-    text-align: center;
-  }
-
-  .surprise-btn {
-    padding: 20px 50px;
-    background: linear-gradient(135deg, var(--rose), var(--lavender), var(--gold));
-    background-size: 200%;
-    color: white;
-    border: none;
-    border-radius: 60px;
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.8rem;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s, background-position 0.5s;
-    box-shadow: 0 8px 30px rgba(255,107,157,0.4);
-    animation: glow 3s ease-in-out infinite;
-  }
-
-  @keyframes glow {
-    0%, 100% { box-shadow: 0 8px 30px rgba(255,107,157,0.4); }
-    50% { box-shadow: 0 8px 50px rgba(199,125,255,0.6), 0 0 60px rgba(255,107,157,0.3); }
-  }
-
-  .surprise-btn:hover {
-    transform: scale(1.05);
-    background-position: right center;
-  }
-
-  .surprise-output {
-    margin-top: 30px;
-    min-height: 80px;
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.6rem;
-    color: var(--rose);
-    opacity: 0;
-    transition: opacity 0.5s;
-    line-height: 1.5;
-  }
-
-  /* ===== MOOD CHECK ===== */
-  #mood {
-    padding: 80px 20px;
-    background: white;
-    text-align: center;
-  }
-
-  .mood-grid {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 14px;
-    max-width: 500px;
-    margin: 0 auto 30px;
-  }
-
-  .mood-btn {
-    background: white;
-    border: 2px solid var(--peach);
-    border-radius: 16px;
-    padding: 14px 18px;
-    font-size: 1.4rem;
-    cursor: pointer;
-    transition: all 0.25s;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--deep);
-    display: flex; flex-direction: column; align-items: center; gap: 6px;
-  }
-
-  .mood-btn span:first-child { font-size: 2rem; }
-
-  .mood-btn:hover, .mood-btn.active {
-    background: linear-gradient(135deg, #fff0f7, #f5e6ff);
-    border-color: var(--rose);
-    transform: scale(1.08);
-    box-shadow: 0 6px 20px rgba(255,107,157,0.2);
-  }
-
-  .mood-response {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 28px;
-    background: linear-gradient(135deg, #fff0f7, #f5e6ff);
-    border-radius: 24px;
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--deep);
-    line-height: 1.7;
-    display: none;
-    animation: popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275) both;
-  }
-
-  /* ===== FOOTER ===== */
-  footer {
-    padding: 50px 20px;
-    text-align: center;
-    background: linear-gradient(135deg, #1a0828, #2d1b3d);
-    color: white;
-  }
-
-  .footer-title {
-    font-family: 'Dancing Script', cursive;
-    font-size: 2.5rem;
-    color: var(--gold);
-    margin-bottom: 12px;
-  }
-
-  .footer-sub {
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.4);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  .heart-row {
-    font-size: 1.5rem;
-    letter-spacing: 8px;
-    margin: 20px 0;
-    animation: heartbeat 1.5s ease-in-out infinite;
-  }
-
-  @keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.12); }
-  }
-
-  /* ===== UTILS ===== */
-  @keyframes popIn {
-    from { opacity: 0; transform: scale(0.8) translateY(20px); }
-    to { opacity: 1; transform: scale(1) translateY(0); }
-  }
-
-  .fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Stars in dark sections */
-  .star { position: absolute; background: white; border-radius: 50%; animation: twinkle 2s ease-in-out infinite; }
-  @keyframes twinkle { 0%,100%{opacity:1} 50%{opacity:0.2} }
-
-  /* ===== MOBILE POLISH ===== */
-  @media (max-width: 600px) {
-
-    /* Hide cursor on touch devices */
-    .cursor { display: none; }
-    body { cursor: auto; }
-
-    /* Nav: stack logo + scrollable links */
-    nav {
-      flex-direction: column;
-      gap: 8px;
-      padding: 10px 16px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#180c20">
+  <meta name="description" content="A living love letter from Naveesen to Krethisa—our time, our memories, and every little forever still ahead.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="For every version of you, always.">
+  <meta property="og:description" content="Krethisa × Naveesen · Since 14 January 2026">
+  <meta property="og:image" content="https://urstudios.github.io/krethisa/assets/social/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="For every version of you, always.">
+  <meta name="twitter:description" content="Krethisa × Naveesen · Since 14 January 2026">
+  <meta name="twitter:image" content="https://urstudios.github.io/krethisa/assets/social/og.png">
+  <title>For Krethisa, Always 🌸</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:#281627; --plum:#45203f; --night:#140918; --rose:#e95184;
+      --pink:#ff91b7; --gold:#f6ca82; --cream:#fff9f1; --paper:#fffdf8;
+      --muted:#7d6979; --line:rgba(67,28,57,.12); --a:#e95184; --b:#9b5de5;
+      --shadow:0 24px 70px rgba(66,24,55,.14);
+      --serif:'Playfair Display',Georgia,serif; --script:'Dancing Script',cursive;
+      --sans:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
     }
-    .nav-logo { font-size: 1.3rem; }
-    .nav-links {
-      gap: 8px;
-      justify-content: center;
-      font-size: 0.7rem;
-    }
-    .nav-links a { font-size: 0.7rem; letter-spacing: 0.5px; }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;scroll-padding-top:100px}
+    body{min-width:320px;overflow-x:hidden;background:var(--cream);color:var(--ink);font-family:var(--sans);line-height:1.5}
+    body[data-theme="2"]{--a:#d84d79;--b:#7d5bc3}
+    body[data-theme="3"]{--a:#bc4d8c;--b:#5865b9}
+    img{max-width:100%} button,a{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+    button{border:0;font:inherit} :focus-visible{outline:3px solid rgba(233,81,132,.42);outline-offset:4px}
+    ::selection{background:var(--rose);color:#fff}
+    .skip{position:fixed;left:16px;top:-90px;z-index:9999;padding:12px 18px;border-radius:12px;background:#fff;color:var(--ink);font-weight:700;text-decoration:none}
+    .skip:focus{top:16px}
+    .cursor{display:none;position:fixed;z-index:9999;width:18px;height:18px;border:1px solid rgba(255,255,255,.7);border-radius:50%;background:rgba(233,81,132,.34);pointer-events:none;transform:translate(-50%,-50%);transition:.18s;mix-blend-mode:difference}
+    @media(pointer:fine){.cursor{display:block}body,a,button{cursor:none}}
 
-    /* Hero */
-    #hero { padding: 130px 20px 50px; }
-    .hero-date-badge { font-size: 0.7rem; padding: 6px 16px; }
+    .nav{position:fixed;inset:18px 4vw auto;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:10px 12px 10px 20px;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(24,12,31,.68);box-shadow:0 18px 60px rgba(20,7,28,.25);backdrop-filter:blur(22px) saturate(140%)}
+    .logo{color:#fff8ee;font-family:var(--script);font-size:1.45rem;line-height:1;text-decoration:none;white-space:nowrap}
+    .links{display:flex;gap:4px;list-style:none}
+    .links a{display:block;padding:10px 14px;border-radius:999px;color:rgba(255,255,255,.74);font-size:.66rem;font-weight:700;letter-spacing:.08em;text-decoration:none;text-transform:uppercase}
+    .links a:hover,.links a.active{background:rgba(255,255,255,.1);color:#fff}
+    .mobile-nav{display:none}
 
-    /* Counter */
-    #counter { padding: 60px 16px; }
-    .counter-grid { gap: 12px; }
-    .counter-card { min-width: 120px; padding: 22px 16px; }
-    .counter-num { font-size: 2.4rem; }
-    .counter-label { font-size: 0.7rem; }
+    .hero{position:relative;min-height:100svh;padding:132px clamp(22px,6vw,96px) 70px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(420px,1.1fr);gap:clamp(46px,7vw,112px);align-items:center;overflow:hidden;isolation:isolate;background:radial-gradient(circle at 14% 18%,rgba(233,81,132,.2),transparent 31%),radial-gradient(circle at 84% 78%,rgba(246,202,130,.17),transparent 27%),linear-gradient(145deg,#140917,#28122d 48%,#150d22);color:#fff}
+    .hero:before{content:'';position:absolute;inset:0;z-index:-2;opacity:.17;background:url('assets/photos/10-cinema-us.webp') center/cover;filter:blur(25px) saturate(120%);transform:scale(1.11)}
+    .hero:after{content:'';position:absolute;z-index:-1;width:34vw;aspect-ratio:1;right:-12vw;top:-10vw;border:1px solid rgba(255,209,102,.17);border-radius:50%;box-shadow:0 0 0 80px rgba(255,255,255,.018),0 0 0 160px rgba(255,255,255,.012)}
+    .hero-copy{position:relative;z-index:3;max-width:680px}
+    .eyebrow,.kicker{display:inline-flex;align-items:center;gap:10px;margin-bottom:20px;color:var(--rose);font-size:.68rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+    .eyebrow{color:#ffdca8}.eyebrow:before,.kicker:before{content:'';width:30px;height:1px;background:currentColor}
+    .hero h1{color:#fff9f1;font-family:var(--serif);font-size:clamp(3.2rem,7.6vw,7.5rem);font-weight:400;letter-spacing:-.055em;line-height:.92;text-shadow:0 18px 60px rgba(0,0,0,.35);animation:arrive .9s .06s both}
+    .hero h1 em,.title em{display:block;color:var(--pink);font-family:var(--script);font-weight:600;letter-spacing:-.02em}
+    .hero-copy>p{max-width:570px;margin-top:28px;color:rgba(255,255,255,.72);font-size:clamp(1rem,1.5vw,1.18rem);line-height:1.75;animation:arrive .9s .18s both}
+    @keyframes arrive{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+    .hero-actions{display:flex;align-items:center;flex-wrap:wrap;gap:14px 20px;margin-top:34px;animation:arrive .9s .28s both}
+    .primary,.secondary{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 23px;border-radius:999px;font-size:.74rem;font-weight:700;letter-spacing:.08em;text-decoration:none;text-transform:uppercase;transition:.25s}
+    .primary{background:linear-gradient(135deg,var(--a),var(--b));box-shadow:0 14px 38px rgba(255,75,137,.28);color:#fff}
+    .secondary{border:1px solid var(--line);background:#fff;color:var(--ink)}
+    .primary:hover,.secondary:hover{transform:translateY(-3px)} .whisper{color:rgba(255,255,255,.48);font-family:var(--serif);font-size:.92rem;font-style:italic}
+    .collage{position:relative;width:min(100%,700px);min-height:min(72vh,720px);justify-self:end;animation:arrive 1s .18s both}
+    .hero-photo{position:absolute;overflow:hidden;border:8px solid rgba(255,250,244,.96);background:#f7eee5;box-shadow:0 30px 80px rgba(4,0,10,.42)}
+    .hero-photo img{width:100%;height:100%;display:block;object-fit:cover}
+    .hero-main{inset:2% 7% 8% 14%;z-index:2;border-radius:48% 48% 30px 30px;transform:rotate(2.5deg)} .hero-main img{object-position:54% center}
+    .hero-small{width:34%;height:34%;left:-1%;bottom:4%;z-index:4;border-radius:22px;transform:rotate(-8deg)}
+    .hero-note{position:absolute;right:-1%;top:9%;z-index:5;width:min(225px,35%);padding:22px 20px;border:1px solid rgba(255,255,255,.36);border-radius:22px;background:rgba(255,244,231,.9);box-shadow:0 24px 60px rgba(12,2,17,.32);color:#402038;transform:rotate(5deg);backdrop-filter:blur(14px)}
+    .hero-note span{display:block;margin-bottom:8px;color:#b74470;font-size:.6rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+    .hero-note p{font-family:var(--script);font-size:clamp(1.25rem,2vw,1.75rem);line-height:1.15}
+    .orbit{position:absolute;left:7%;top:8%;z-index:6;display:grid;width:56px;aspect-ratio:1;place-items:center;border:1px solid rgba(255,255,255,.22);border-radius:50%;background:rgba(50,18,52,.68);font-size:1.35rem;animation:float 3.2s ease-in-out infinite}
+    @keyframes float{50%{transform:translateY(-10px) rotate(5deg)}}
 
-    /* Daily message */
-    #daily { padding: 60px 16px; }
-    .message-card { padding: 36px 24px; border-radius: 24px; }
-    .message-text { font-size: 1rem; }
-    .refresh-btn { padding: 10px 24px; font-size: 0.85rem; }
+    .section{position:relative;padding:clamp(82px,10vw,150px) clamp(18px,6vw,96px)}
+    .inner{width:min(1220px,100%);margin:auto}
+    .title{max-width:820px;color:var(--ink);font-family:var(--serif);font-size:clamp(2.7rem,5.5vw,5.8rem);font-weight:400;letter-spacing:-.048em;line-height:.98}
+    .title em{color:var(--rose)} .copy{max-width:560px;margin-top:20px;color:var(--muted);font-size:clamp(.95rem,1.4vw,1.08rem);line-height:1.75}
+    .reveal{transition:opacity .75s ease,transform .75s ease} body.ready .reveal{opacity:0;transform:translateY(28px)} body.ready .reveal.visible{opacity:1;transform:none}
 
-    /* Letter */
-    #letter { padding: 60px 16px; }
-    .letter-paper {
-      padding: 28px 20px 36px 28px;
-      font-size: 0.9rem;
-      box-shadow: 4px 4px 0 0 #f0d9ff, 6px 6px 0 0 #e8d5ff;
-    }
-    .letter-paper::before { left: 28px; }
-    .letter-greeting { font-size: 1.5rem; }
-    .letter-sign { font-size: 1.3rem; }
+    .counter-section{overflow:hidden;background:radial-gradient(circle at 7% 100%,rgba(197,93,255,.15),transparent 32%),linear-gradient(#fffaf4,#f9edf2)}
+    .counter-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:30px;margin-bottom:42px}.counter-head .copy{max-width:330px;margin:0 0 6px}
+    .counter-layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(310px,.6fr);gap:24px}
+    .counter-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .counter-card{min-height:190px;padding:clamp(25px,3vw,42px);display:flex;flex-direction:column;justify-content:space-between;border:1px solid rgba(72,30,62,.08);border-radius:28px;background:rgba(255,255,255,.82);box-shadow:0 18px 55px rgba(105,51,88,.09)}
+    .counter-card:first-child{grid-row:span 2;min-height:394px;background:linear-gradient(150deg,#401d3c,#24112d);color:#fff}
+    .counter-card:first-child .num{align-self:center;margin:auto;color:#fff4e9;font-size:clamp(6rem,12vw,10.5rem)} .counter-card:first-child .label{color:rgba(255,255,255,.55)}
+    .num{color:#cf4977;font-family:var(--serif);font-size:clamp(3.4rem,6vw,5.3rem);letter-spacing:-.06em;line-height:.9}
+    .label{color:#9a8294;font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+    .milestone{position:relative;min-height:394px;padding:34px;overflow:hidden;border-radius:30px;background:radial-gradient(circle at 90% 10%,rgba(255,213,145,.24),transparent 30%),linear-gradient(145deg,#8f315b,#4b214c 62%,#2f1738);box-shadow:0 24px 70px rgba(82,27,69,.25);color:#fff}
+    .milestone small{color:#ffd9a3;font-weight:800;letter-spacing:.2em;text-transform:uppercase}.milestone h3{max-width:330px;margin:14px 0 10px;font-family:var(--serif);font-size:clamp(2.1rem,3vw,3.3rem);font-weight:400;line-height:1.05}
+    .milestone>p{max-width:330px;color:rgba(255,255,255,.65);font-size:.9rem;line-height:1.7}
+    .next{position:absolute;left:34px;bottom:36px;max-width:150px;color:#ffdca7;font-family:var(--script);font-size:1.25rem;line-height:1.2}
+    .progress{--p:82.8deg;position:absolute;right:30px;bottom:30px;display:grid;width:128px;aspect-ratio:1;place-items:center;border-radius:50%;background:conic-gradient(#ffd79d 0 var(--p),rgba(255,255,255,.12) var(--p))}
+    .progress:before{content:'';position:absolute;inset:8px;border-radius:50%;background:#53244f}.progress div{position:relative;z-index:1;text-align:center}.progress strong{display:block;font-family:var(--serif);font-size:2rem;font-weight:400;line-height:1}.progress span{color:rgba(255,255,255,.52);font-size:.58rem;text-transform:uppercase}
 
-    /* Affirmations */
-    #affirmations { padding: 60px 16px; }
-    .affirmation-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .affirmation-tile { padding: 20px 14px; font-size: 0.85rem; }
+    .capsules{overflow:hidden;background:radial-gradient(circle at 20% 30%,rgba(233,81,132,.19),transparent 28%),#180c20;color:#fff}
+    .capsules .title{color:#fff8ef}.capsules .copy{color:rgba(255,255,255,.58)}
+    .capsule-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+    .capsule{position:relative;min-height:410px;padding:30px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;border:1px solid rgba(255,255,255,.12);border-radius:28px;background:rgba(255,255,255,.055);color:#fff}
+    .capsule.unlocked{transition:.3s}.capsule.unlocked:hover{transform:translateY(-8px);border-color:rgba(255,209,157,.4);background:rgba(255,255,255,.085)}.capsule.locked{opacity:.58}
+    .big-day{position:absolute;right:-10px;top:-18px;color:rgba(255,255,255,.035);font-family:var(--serif);font-size:9rem;line-height:1}
+    .status{display:inline-flex;width:fit-content;padding:7px 12px;border:1px solid rgba(255,255,255,.12);border-radius:999px;color:#ffd9a0;font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .capsule h3{margin:auto 0 12px;font-family:var(--serif);font-size:clamp(2rem,3vw,3rem);font-weight:400;line-height:1.05}.capsule p{color:rgba(255,255,255,.58);font-size:.88rem;line-height:1.7}
+    .capsule-open{width:fit-content;margin-top:24px;padding-bottom:5px;border-bottom:1px solid;background:transparent;color:#ffd9a0;font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
 
-    /* Game */
-    #game { padding: 60px 16px; }
-    .game-area { height: 280px; }
-    .game-heart { font-size: 1.6rem; }
-    .game-stats { gap: 24px; }
-    .stat-item strong { font-size: 1.6rem; }
-    .game-btn { padding: 10px 28px; font-size: 0.85rem; }
+    .today{background:linear-gradient(120deg,rgba(255,255,255,.94),rgba(255,247,241,.9)),url('assets/photos/08-her-city-lights.webp') center/cover}
+    .today-layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(380px,1.1fr);gap:clamp(38px,7vw,92px);align-items:center}
+    .daily-photo-wrap{position:relative;min-height:650px}.daily-photo{position:absolute;inset:0 8% 6% 2%;overflow:hidden;border:10px solid #fff;border-radius:32px;box-shadow:var(--shadow);transform:rotate(-2.4deg)}.daily-photo img{width:100%;height:100%;object-fit:cover}
+    .stamp{position:absolute;right:0;top:8%;z-index:2;width:min(195px,42%);padding:20px;border-radius:20px;background:#fff5e7;box-shadow:0 20px 50px rgba(61,24,51,.18);transform:rotate(6deg)}.stamp strong{display:block;color:var(--rose);font-family:var(--serif);font-size:2.1rem;font-weight:400;line-height:1}.stamp span{color:var(--muted);font-size:.62rem;font-weight:700;text-transform:uppercase}
+    .daily-card{margin-top:38px;padding:clamp(28px,4vw,48px);border:1px solid rgba(71,30,61,.08);border-radius:30px;background:rgba(255,255,255,.76);box-shadow:var(--shadow);backdrop-filter:blur(16px)}
+    .daily-tag{color:var(--rose);font-size:.62rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.daily-icon{margin:20px 0 14px;font-size:2.2rem}.daily-message{font-family:var(--serif);font-size:clamp(1.45rem,2.6vw,2.25rem);font-style:italic;line-height:1.4}.daily-from{margin-top:18px;color:var(--rose);font-family:var(--script);font-size:1.35rem}
+    .daily-actions{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-top:26px}.small-btn{padding:11px 16px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);font-size:.68rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase}.reason{color:var(--muted);font-family:var(--serif);font-size:.88rem;font-style:italic}
 
-    /* Timeline */
-    #memories { padding: 60px 16px; }
-    .timeline::before { left: 14px; }
-    .timeline-item { padding: 0 0 30px 42px; }
-    .timeline-dot { left: 4px; width: 20px; height: 20px; }
-    .timeline-card { padding: 16px 18px; }
-    .timeline-text { font-size: 0.9rem; }
+    .memories{overflow:hidden;background:#fffaf4}.memory-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:40px}.memory-head .copy{max-width:390px;margin:0 0 8px}
+    .film{position:relative;margin-top:58px;padding:clamp(28px,5vw,58px);overflow:hidden;border-radius:34px;background:#180d1c;box-shadow:var(--shadow);color:#fff}
+    .film:before,.film:after{content:'';position:absolute;left:0;right:0;height:12px;opacity:.35;background:repeating-linear-gradient(90deg,transparent 0 22px,#fff 22px 36px,transparent 36px 58px)}.film:before{top:12px}.film:after{bottom:12px}
+    .film-head{display:flex;justify-content:space-between;gap:24px;margin-bottom:32px}.film-head span{color:#ffd9a0;font-size:.63rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.film h3{max-width:650px;margin-top:10px;font-family:var(--serif);font-size:clamp(2rem,4vw,4rem);font-weight:400;line-height:1.05}.film-head p{max-width:330px;color:rgba(255,255,255,.56);font-size:.86rem;line-height:1.7}
+    .film-strip{display:grid;grid-template-columns:1.3fr 1fr 1.3fr .75fr;gap:10px}.frame{min-height:230px;overflow:hidden;border:4px solid #f6eee6;border-radius:6px;transform:rotate(-.8deg)}.frame:nth-child(even){transform:rotate(.9deg)}.frame img{width:100%;height:100%;object-fit:cover}
+    .story{margin-top:95px}.chapter{display:grid;grid-template-columns:minmax(260px,.62fr) minmax(0,1.38fr);gap:clamp(34px,7vw,90px);align-items:center;margin-bottom:clamp(90px,12vw,160px)}.chapter:nth-child(even){grid-template-columns:minmax(0,1.38fr) minmax(260px,.62fr)}.chapter:nth-child(even) .chapter-copy{order:2}
+    .chapter-no{color:var(--rose);font-family:var(--script);font-size:1.25rem}.chapter h3{margin-top:14px;font-family:var(--serif);font-size:clamp(2.3rem,4.6vw,4.8rem);font-weight:400;letter-spacing:-.045em;line-height:1}.chapter-copy p{margin-top:18px;color:var(--muted);line-height:1.8}
+    .photos{position:relative;min-height:590px}.memory-photo{position:absolute;overflow:hidden;border:8px solid #fff;background:#fff;box-shadow:0 22px 60px rgba(52,19,44,.18);transition:.35s}.memory-photo:hover{z-index:12;transform:rotate(0) scale(1.035)!important}.memory-photo img{width:100%;height:100%;object-fit:cover}
+    .photos .memory-photo:nth-child(1){inset:0 38% 22% 0;z-index:3;border-radius:28px;transform:rotate(-4deg)}.photos .memory-photo:nth-child(2){inset:15% 0 0 46%;z-index:4;border-radius:24px;transform:rotate(5deg)}.photos .memory-photo:nth-child(3){width:34%;height:37%;right:32%;bottom:0;z-index:6;border-radius:20px;transform:rotate(-7deg)}.photos .memory-photo:nth-child(4){width:31%;height:31%;right:1%;top:0;z-index:2;border-radius:20px;transform:rotate(8deg)}
 
-    /* Mood */
-    #mood { padding: 60px 16px; }
-    .mood-grid { gap: 10px; }
-    .mood-btn { padding: 12px 14px; min-width: 80px; }
-    .mood-btn span:first-child { font-size: 1.6rem; }
-    .mood-response { padding: 22px 20px; font-size: 1rem; }
+    .open-when{background:radial-gradient(circle at 85% 16%,rgba(233,81,132,.15),transparent 25%),linear-gradient(150deg,#f7e9f0,#fff8ef)}
+    .open-layout{display:grid;grid-template-columns:minmax(0,.82fr) minmax(420px,1.18fr);gap:clamp(38px,7vw,90px);align-items:start}.sticky{position:sticky;top:120px}
+    .open-output{margin-top:34px;min-height:260px;padding:36px;border:1px solid var(--line);border-radius:28px;background:rgba(255,255,255,.78);box-shadow:var(--shadow)}.open-output i{font-style:normal;font-size:2rem}.open-output h3{margin:14px 0 10px;color:var(--rose);font-family:var(--script);font-size:2rem}.open-output p{font-family:var(--serif);font-size:clamp(1.15rem,2vw,1.45rem);font-style:italic;line-height:1.6}
+    .open-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.open-card{min-height:185px;padding:24px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;border:1px solid var(--line);border-radius:25px;background:rgba(255,255,255,.78);box-shadow:0 14px 38px rgba(68,27,57,.07);color:var(--ink);text-align:left;transition:.25s}.open-card:hover,.open-card.active{transform:translateY(-5px);border-color:rgba(233,81,132,.28);background:#fff}.open-card span{font-size:1.75rem}.open-card strong{font-family:var(--serif);font-size:1.35rem;font-weight:500}.open-card small{color:var(--muted)}
 
-    /* Surprise */
-    #surprise { padding: 60px 16px; }
-    .surprise-btn { padding: 16px 36px; font-size: 1.4rem; }
-    .surprise-output { font-size: 1.2rem; }
+    .letter{background:#25102d;color:#fff}.letter-layout{display:grid;grid-template-columns:minmax(280px,.65fr) minmax(0,1.35fr);gap:clamp(42px,8vw,110px);align-items:start}.letter .title{color:#fff7ee}.letter .copy{color:rgba(255,255,255,.54)}
+    .paper{position:relative;padding:clamp(32px,6vw,72px);border-radius:8px 28px 28px 8px;background:linear-gradient(90deg,transparent 58px,rgba(233,81,132,.15) 58px 59px,transparent 59px),repeating-linear-gradient(#fffdf7 0 42px,#e9dfd7 43px);box-shadow:12px 14px 0 #e4cfdf,24px 28px 80px rgba(0,0,0,.3);color:#3d2b3a;transform:rotate(.5deg)}
+    .greeting,.sign{color:var(--rose);font-family:var(--script);font-size:clamp(1.8rem,3vw,2.7rem)}.letter-body{margin-top:24px;font-family:var(--serif);font-size:clamp(1rem,1.55vw,1.15rem);line-height:2.05}.letter-body p+p{margin-top:20px}.sign{margin-top:34px;color:#804b79}
+    .reasons{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:80px}.reason-card{min-height:220px;padding:25px;border:1px solid rgba(255,255,255,.1);border-radius:24px;background:rgba(255,255,255,.05)}.reason-card span{color:#ffd9a0;font-family:var(--serif);font-size:2rem}.reason-card p{margin-top:32px;color:rgba(255,255,255,.72);font-family:var(--serif);font-size:1.05rem;font-style:italic;line-height:1.55}
 
-    /* Footer */
-    footer { padding: 40px 16px; }
-    .footer-title { font-size: 2rem; }
-    .heart-row { font-size: 1.2rem; letter-spacing: 4px; }
+    .play{background:linear-gradient(145deg,#fff8ef,#f7e8ee)}.play-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(330px,.9fr);gap:30px;margin-top:48px}.panel{padding:clamp(28px,4vw,48px);border:1px solid var(--line);border-radius:30px;background:rgba(255,255,255,.8);box-shadow:var(--shadow)}.panel h3{font-family:var(--serif);font-size:clamp(2rem,3vw,3rem);font-weight:400}.panel>p{margin-top:10px;color:var(--muted);line-height:1.7}
+    .game-stats{display:flex;gap:28px;margin:24px 0 16px}.stat{color:var(--muted);font-size:.65rem;font-weight:700;text-transform:uppercase}.stat strong{display:block;color:var(--rose);font-family:var(--serif);font-size:2.2rem;font-weight:400;line-height:1}.game-area{position:relative;height:310px;overflow:hidden;margin-bottom:16px;border-radius:24px;background:radial-gradient(circle at 20% 30%,rgba(233,81,132,.2),transparent 28%),linear-gradient(145deg,#25102e,#130a19)}.game-heart{position:absolute;padding:6px;background:transparent;font-size:2rem;animation:pulse .8s ease-in-out infinite}@keyframes pulse{50%{transform:scale(1.2)}}.game-msg{min-height:30px;margin-top:14px;color:var(--rose);font-family:var(--script);font-size:1.2rem}
+    .surprise{display:flex;flex-direction:column;justify-content:space-between;background:radial-gradient(circle at 85% 15%,rgba(246,202,130,.3),transparent 28%),linear-gradient(145deg,#6e2d59,#321b42);color:#fff}.surprise>p{color:rgba(255,255,255,.58)}.surprise-btn{width:170px;aspect-ratio:1;align-self:center;margin:34px 0;border:1px solid rgba(255,255,255,.22);border-radius:50%;background:linear-gradient(135deg,#ee5a88,#ad5ce1);box-shadow:0 0 0 16px rgba(255,255,255,.045),0 20px 55px rgba(20,5,24,.35);color:#fff;font-family:var(--script);font-size:1.5rem;transition:.3s}.surprise-btn:hover{transform:rotate(-4deg) scale(1.06)}.surprise-out{min-height:70px;color:#ffe5bb;font-family:var(--serif);font-size:1.15rem;font-style:italic;line-height:1.55;text-align:center}
 
-    /* Section titles */
-    .section-title { font-size: 1.8rem; }
-  }
-</style>
+    footer{padding:110px 22px calc(74px + env(safe-area-inset-bottom));background:radial-gradient(circle at 50% 0,rgba(233,81,132,.22),transparent 35%),#100714;color:#fff;text-align:center}.footer-photo{width:min(250px,65vw);aspect-ratio:1;margin:0 auto 34px;overflow:hidden;border:8px solid #fff8ee;border-radius:50%;box-shadow:0 0 0 14px rgba(255,255,255,.035),0 30px 70px rgba(0,0,0,.4)}.footer-photo img{width:100%;height:100%;object-fit:cover}footer h2{font-family:var(--script);font-size:clamp(3rem,7vw,6rem);line-height:1}footer p{max-width:590px;margin:22px auto;color:rgba(255,255,255,.58);font-family:var(--serif);font-style:italic;line-height:1.75}.footer-mark{color:#ffd9a0;font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+
+    .modal{position:fixed;inset:0;z-index:1200;display:grid;place-items:center;padding:20px;background:rgba(15,5,18,.8);opacity:0;visibility:hidden;pointer-events:none;backdrop-filter:blur(18px);transition:.25s}.modal.open{opacity:1;visibility:visible;pointer-events:auto}.modal-card{position:relative;width:min(680px,100%);max-height:88vh;padding:clamp(30px,6vw,66px);overflow:auto;border:1px solid rgba(255,255,255,.14);border-radius:30px;background:radial-gradient(circle at 90% 5%,rgba(246,202,130,.25),transparent 25%),linear-gradient(145deg,#652a52,#261331);box-shadow:0 38px 100px rgba(0,0,0,.5);color:#fff;text-align:center}.close{position:absolute;right:18px;top:18px;display:grid;width:44px;aspect-ratio:1;place-items:center;border:1px solid rgba(255,255,255,.15);border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font-size:1.15rem}.modal-icon{font-size:3rem}.modal h2{margin-top:18px;font-family:var(--serif);font-size:clamp(2.4rem,6vw,4.5rem);font-weight:400;line-height:1}.modal-card>p{margin:22px auto;color:rgba(255,255,255,.68);font-family:var(--serif);font-size:1.1rem;font-style:italic;line-height:1.75}.modal-photo{width:min(280px,80%);aspect-ratio:4/3;margin:28px auto 0;overflow:hidden;border:7px solid #fff6e9;border-radius:20px;transform:rotate(-2deg)}.modal-photo img{width:100%;height:100%;object-fit:cover}
+    .lightbox-card{width:min(920px,100%);padding:12px;background:#fff9f1}.lightbox-card>img{width:100%;max-height:78vh;object-fit:contain;border-radius:20px}.lightbox-card>p{padding:12px;color:var(--ink);font-family:var(--script);font-size:1.3rem}
+    .petal{position:fixed;z-index:1500;top:-40px;pointer-events:none;animation:fall var(--time,4s) linear forwards}@keyframes fall{to{transform:translate3d(var(--drift,0),110vh,0) rotate(720deg);opacity:.1}}
+
+    @media(max-width:1080px){.hero{grid-template-columns:1fr;min-height:auto;padding-top:150px}.collage{width:min(100%,680px);min-height:660px;justify-self:center}.counter-head,.memory-head{grid-template-columns:1fr}.counter-head .copy,.memory-head .copy{max-width:540px;margin-top:0}.counter-layout,.today-layout,.open-layout,.letter-layout{grid-template-columns:1fr}.daily-photo-wrap{width:min(680px,100%);min-height:620px}.sticky{position:static}.reasons{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:820px){body{padding-bottom:calc(74px + env(safe-area-inset-bottom))}.nav{inset:12px 12px auto;padding:11px 16px}.links{display:none}.mobile-nav{position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:700;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:7px;border:1px solid rgba(255,255,255,.15);border-radius:22px;background:rgba(25,12,31,.9);backdrop-filter:blur(22px)}.mobile-nav a{min-height:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:16px;color:rgba(255,255,255,.62);font-size:.55rem;font-weight:700;text-decoration:none}.mobile-nav a span{font-size:1.15rem}.mobile-nav a.active{background:rgba(255,255,255,.1);color:#fff}.capsule-grid{grid-template-columns:1fr}.capsule{min-height:330px}.film-head{display:block}.film-head p{margin-top:18px}.film-strip{grid-template-columns:repeat(2,1fr)}.chapter,.chapter:nth-child(even){grid-template-columns:1fr}.chapter:nth-child(even) .chapter-copy{order:0}.play-layout{grid-template-columns:1fr}}
+    @media(max-width:600px){html{scroll-padding-top:74px}.section{padding:78px 16px}.title{font-size:clamp(2.65rem,13vw,4.15rem)}.hero{padding:112px 18px 48px;gap:42px}.hero h1{font-size:clamp(3.2rem,17vw,5.2rem)}.hero-copy>p{font-size:.96rem;line-height:1.68}.hero-actions{margin-top:27px}.primary,.secondary{min-height:48px;padding:0 18px;font-size:.68rem}.whisper{width:100%}.collage{min-height:500px}.hero-main{inset:0 4% 7% 9%;border-width:6px;border-radius:42% 42% 24px 24px}.hero-small{width:38%;height:31%;left:0;bottom:1%;border-width:5px}.hero-note{right:0;top:7%;width:43%;padding:16px 14px}.orbit{left:2%;top:3%;width:48px}.counter-grid{gap:10px}.counter-card{min-height:130px;padding:21px 17px;border-radius:22px}.counter-card:first-child{grid-column:1/-1;grid-row:auto;min-height:210px}.counter-card:first-child .num{font-size:clamp(6rem,31vw,8rem)}.num{font-size:3rem}.milestone{min-height:390px;padding:28px 24px}.progress{right:24px;bottom:24px;width:116px}.next{left:24px;bottom:30px}.daily-photo-wrap{min-height:500px}.daily-photo{inset:0 6% 6% 0;border-width:7px}.stamp{width:44%;padding:16px}.daily-card{padding:27px 22px}.film{padding:44px 16px;border-radius:26px}.film-strip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}.frame{min-width:82%;scroll-snap-align:center}.chapter{gap:28px;margin-bottom:100px}.photos{min-height:470px}.memory-photo{border-width:5px}.photos .memory-photo:nth-child(1){inset:0 32% 28% 0}.photos .memory-photo:nth-child(2){inset:18% 0 0 48%}.photos .memory-photo:nth-child(3){width:37%;height:34%;right:34%}.photos .memory-photo:nth-child(4){width:34%;height:28%}.open-grid{gap:10px}.open-card{min-height:155px;padding:18px;border-radius:20px}.open-card strong{font-size:1.1rem}.open-output{padding:25px 21px}.paper{padding:38px 25px 42px 38px;background:linear-gradient(90deg,transparent 28px,rgba(233,81,132,.15) 28px 29px,transparent 29px),repeating-linear-gradient(#fffdf7 0 42px,#e9dfd7 43px);box-shadow:6px 8px 0 #e4cfdf,15px 22px 55px rgba(0,0,0,.3)}.letter-body{font-size:.94rem;line-height:1.95}.reasons{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}.reason-card{min-width:78%;scroll-snap-align:start}.panel{padding:26px 20px}.game-area{height:270px}.surprise-btn{width:150px}.modal{padding:12px}.modal-card{max-height:90vh;padding:46px 24px 32px;border-radius:25px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}body.ready .reveal{opacity:1;transform:none}}
+  </style>
 </head>
-<body>
+<body data-theme="3">
+  <a class="skip" href="#main">Skip to the love story</a>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <nav class="nav" aria-label="Love story navigation">
+    <a class="logo" href="#hero">Krethisa 🌸</a>
+    <ul class="links">
+      <li><a href="#counter">Our time</a></li><li><a href="#capsules">Milestones</a></li>
+      <li><a href="#today">For today</a></li><li><a href="#memories">Memories</a></li>
+      <li><a href="#open-when">Open when</a></li><li><a href="#letter">My letter</a></li>
+    </ul>
+  </nav>
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <a href="#counter"><span>⏳</span>Time</a><a href="#capsules"><span>🎁</span>Chapters</a>
+    <a href="#today"><span>💌</span>Today</a><a href="#memories"><span>📸</span>Us</a>
+    <a href="#open-when"><span>🫂</span>For you</a>
+  </nav>
 
-<div class="cursor" id="cursor"></div>
+  <main id="main">
+    <section id="hero" class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">Our story · Since 14 January 2026</div>
+        <h1>For every version <em>of you, always.</em></h1>
+        <p>Krethisa, this is our little universe—made from the moments I keep replaying, the words I never want you to forget, and a love that keeps choosing you every single day.</p>
+        <div class="hero-actions"><a class="primary" href="#counter">See how long I've loved you ↓</a><span class="whisper">Made by Naveesen, with forever in mind.</span></div>
+      </div>
+      <div class="collage" aria-label="A collage of Krethisa and Naveesen">
+        <figure class="hero-photo hero-main"><img src="assets/photos/03-sunlit-us.webp" alt="Krethisa and Naveesen smiling together in warm sunlight" fetchpriority="high"></figure>
+        <figure class="hero-photo hero-small"><img src="assets/photos/04-her-flowers.webp" alt="Krethisa smiling with a bouquet of roses"></figure>
+        <div class="hero-note"><span>A note from me</span><p id="hero-note">You are still my favourite hello.</p></div>
+        <div class="orbit" aria-hidden="true">💗</div>
+      </div>
+    </section>
 
-<!-- Floating hearts -->
-<div class="hearts-bg" id="heartsBg"></div>
+    <section id="counter" class="section counter-section">
+      <div class="inner">
+        <div class="counter-head reveal"><h2 class="title">Every second has been <em>worth keeping.</em></h2><p class="copy">Since the day Naveesen met his favourite person, time stopped feeling ordinary.</p></div>
+        <div class="counter-layout">
+          <div class="counter-grid reveal" aria-label="Time since January 14, 2026">
+            <div class="counter-card"><div class="num" id="cnt-days">0</div><div class="label">Days of us</div></div>
+            <div class="counter-card"><div class="num" id="cnt-hours">0</div><div class="label">Hours</div></div>
+            <div class="counter-card"><div class="num" id="cnt-mins">0</div><div class="label">Minutes</div></div>
+            <div class="counter-card"><div class="num" id="cnt-secs">0</div><div class="label">Seconds</div></div>
+          </div>
+          <aside class="milestone reveal">
+            <small id="milestone-kicker">Chapter III · Unlocked</small><h3 id="milestone-title">Two hundred days of choosing you.</h3>
+            <p id="milestone-copy">Our 200-day love capsule is open. The next little piece of forever is already on its way.</p>
+            <div class="next" id="next">The next chapter is coming</div>
+            <div class="progress" id="progress"><div><strong id="cycle-days">0</strong><span>days in</span></div></div>
+          </aside>
+        </div>
+      </div>
+    </section>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">Krethisa 🌸</div>
-  <ul class="nav-links">
-    <li><a href="#counter">Days</a></li>
-    <li><a href="#daily">Message</a></li>
-    <li><a href="#letter">Letter</a></li>
-    <li><a href="#affirmations">You Are</a></li>
-    <li><a href="#game">Game</a></li>
-    <li><a href="#mood">Mood</a></li>
-    <li><a href="#surprise">Surprise</a></li>
-  </ul>
-</nav>
+    <section id="capsules" class="section capsules">
+      <div class="inner">
+        <div class="reveal"><div class="kicker">Every 100 days, something new</div><h2 class="title">Little pieces of <em>forever, unlocked.</em></h2><p class="copy">Every hundred days becomes a new chapter. The old ones stay open, the next one waits for us, and this page keeps growing with our story.</p></div>
+        <div class="capsule-grid reveal" id="capsule-grid"></div>
+      </div>
+    </section>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-date-badge">✨ A little world, just for you ✨</div>
-  <h1 class="hero-title">Hey, Krethisa 🌸</h1>
-  <p class="hero-sub">You are so incredibly loved, and this page proves it, forever.</p>
-</section>
+    <section id="today" class="section today">
+      <div class="inner today-layout">
+        <div class="daily-photo-wrap reveal">
+          <figure class="daily-photo"><img id="daily-photo" src="assets/photos/08-her-city-lights.webp" alt="Krethisa smiling under city lights" loading="lazy"></figure>
+          <div class="stamp"><strong id="today-day">25</strong><span id="today-month">August · Tuesday</span></div>
+        </div>
+        <div class="reveal">
+          <div class="kicker">This part changes every day</div><h2 class="title">Something new, <em>just for today.</em></h2>
+          <p class="copy">A different memory, a different reason, and another reminder that you never have to wonder whether you are loved.</p>
+          <article class="daily-card" aria-live="polite">
+            <div class="daily-tag" id="daily-tag">Today's love note</div><div class="daily-icon" id="daily-icon">🌸</div>
+            <p class="daily-message" id="daily-message">Loading something beautiful for you…</p><p class="daily-from">— always, Naveesen</p>
+            <div class="daily-actions"><button class="small-btn" id="another-note" type="button">Give me one more</button><span class="reason" id="daily-reason"></span></div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-<!-- COUNTER -->
-<section id="counter">
-  <h2 class="section-title fade-in">Our Timeline 🕊️</h2>
-  <p class="section-sub fade-in">Since the day Naveesen met his favourite person</p>
-  <div class="counter-grid fade-in">
-    <div class="counter-card">
-      <div class="counter-num" id="cnt-days">0</div>
-      <div class="counter-label">Days</div>
-    </div>
-    <div class="counter-card">
-      <div class="counter-num" id="cnt-hours">0</div>
-      <div class="counter-label">Hours</div>
-    </div>
-    <div class="counter-card">
-      <div class="counter-num" id="cnt-mins">0</div>
-      <div class="counter-label">Minutes</div>
-    </div>
-    <div class="counter-card">
-      <div class="counter-num" id="cnt-secs">0</div>
-      <div class="counter-label">Seconds</div>
-    </div>
+    <section id="memories" class="section memories">
+      <div class="inner">
+        <div class="memory-head reveal">
+          <div><div class="kicker">Our story, in the moments I kept</div><h2 class="title">A scrapbook made of <em>us.</em></h2></div>
+          <p class="copy">Not every memory needs a perfect date to be real. Some are kept by the clothes, the light, the laugh, and the way I felt beside you.</p>
+        </div>
+        <article class="film reveal">
+          <div class="film-head"><div><span>17 May 2026 · A tiny film I kept</span><h3>City lights, car talks, and your face doing a hundred adorable things.</h3></div><p>Only the frames with you—the part that made the whole video worth keeping.</p></div>
+          <div class="film-strip">
+            <figure class="frame"><img src="assets/frames/frame-glance.webp" alt="Krethisa glancing toward the camera in the car at night" loading="lazy"></figure>
+            <figure class="frame"><img src="assets/frames/frame-smirk.webp" alt="Krethisa giving a playful smile in the car" loading="lazy"></figure>
+            <figure class="frame"><img src="assets/frames/frame-glow.webp" alt="Krethisa looking toward the camera under warm night light" loading="lazy"></figure>
+            <figure class="frame"><img src="assets/frames/frame-laugh.webp" alt="Krethisa smiling brightly in a candid video frame" loading="lazy"></figure>
+          </div>
+        </article>
+
+        <div class="story">
+          <article class="chapter reveal">
+            <div class="chapter-copy"><div class="chapter-no">Chapter one</div><h3>Somewhere between a hello and every day.</h3><p>I started remembering the ordinary things: car rides, sleepy smiles, the way you look at the camera when you know I am already smiling behind it.</p></div>
+            <div class="photos">
+              <button class="memory-photo" type="button" data-img="assets/photos/02-car-grey.webp" data-caption="The kind of simple moment I could live inside."><img src="assets/photos/02-car-grey.webp" alt="Krethisa and Naveesen together in the car" loading="lazy"></button>
+              <button class="memory-photo" type="button" data-img="assets/photos/05-casual-us.webp" data-caption="Us, being us. No occasion needed."><img src="assets/photos/05-casual-us.webp" alt="Krethisa and Naveesen sharing a casual smile" loading="lazy"></button>
+              <button class="memory-photo" type="button" data-img="assets/photos/06-playful-car.webp" data-caption="The look that makes every car ride better."><img src="assets/photos/06-playful-car.webp" alt="Krethisa smiling playfully while Naveesen looks at her" loading="lazy"></button>
+              <button class="memory-photo" type="button" data-img="assets/photos/07-playful-car.webp" data-caption="Another tiny face I never want to forget."><img src="assets/photos/07-playful-car.webp" alt="Krethisa making a playful expression in the car" loading="lazy"></button>
+            </div>
+          </article>
+          <article class="chapter reveal">
+            <div class="chapter-copy"><div class="chapter-no">Chapter two</div><h3>Flowers, films, and nights that became ours.</h3><p>A bouquet in your hands, cinema light on our faces, city lights behind you—and me quietly thinking that I was looking at my favourite person.</p></div>
+            <div class="photos">
+              <button class="memory-photo" type="button" data-img="assets/photos/04-her-flowers.webp" data-caption="Flowers for the girl who makes everything bloom."><img src="assets/photos/04-her-flowers.webp" alt="Krethisa holding a bouquet of roses" loading="lazy"></button>
+              <button class="memory-photo" type="button" data-img="assets/photos/10-cinema-us.webp" data-caption="Movie night, but you were still my favourite thing to look at."><img src="assets/photos/10-cinema-us.webp" alt="Krethisa and Naveesen at the cinema" loading="lazy"></button>
+              <button class="memory-photo" type="button" data-img="assets/photos/08-her-city-lights.webp" data-caption="City lights had competition that night."><img src="assets/photos/08-her-city-lights.webp" alt="Krethisa smiling under city lights" loading="lazy"></button>
+              <button class="memory-photo" type="button" data-img="assets/photos/09-close-car.webp" data-caption="Close enough to call the moment home."><img src="assets/photos/09-close-car.webp" alt="A close selfie of Krethisa and Naveesen" loading="lazy"></button>
+            </div>
+          </article>
+          <article class="chapter reveal">
+            <div class="chapter-copy"><div class="chapter-no">Chapter three · Right now</div><h3>Still choosing you. Still amazed that I get to.</h3><p>More colour, more laughter, more versions of us. If this is only the beginning, then I cannot wait to see how beautiful the rest becomes.</p></div>
+            <div class="photos">
+              <button class="memory-photo" type="button" data-img="assets/photos/11-orange-us.webp" data-caption="Sunlight, orange, and two very happy faces."><img src="assets/photos/11-orange-us.webp" alt="Krethisa and Naveesen smiling in bright clothes" loading="lazy"></button>
+              <button class="memory-photo" type="button" data-img="assets/photos/12-festive-car.webp" data-caption="Every colour looks like a celebration when it is on you."><img src="assets/photos/12-festive-car.webp" alt="Krethisa and Naveesen in a festive car selfie" loading="lazy"></button>
+              <button class="memory-photo" type="button" data-img="assets/photos/13-close-smiles.webp" data-caption="Two smiles, one tiny universe."><img src="assets/photos/13-close-smiles.webp" alt="Krethisa and Naveesen smiling close together" loading="lazy"></button>
+              <button class="memory-photo" type="button" data-img="assets/photos/01-car-red.webp" data-caption="The softest place is right beside you."><img src="assets/photos/01-car-red.webp" alt="A tender selfie of Krethisa and Naveesen" loading="lazy"></button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="open-when" class="section open-when">
+      <div class="inner open-layout">
+        <div class="sticky reveal">
+          <div class="kicker">A safe place for every mood</div><h2 class="title">Open this when <em>you need me.</em></h2>
+          <p class="copy">You never have to arrive here happy. Bring the tired version, the worried version, the quiet version—every one of them is loved.</p>
+          <div class="open-output" id="open-output" aria-live="polite"><i id="open-icon">🫂</i><h3 id="open-title">For whatever today feels like</h3><p id="open-message">Tap one of the little letters. I left words for the version of you that needs them.</p></div>
+        </div>
+        <div class="open-grid reveal">
+          <button class="open-card" type="button" data-open="sad"><span>🌧️</span><strong>Open when you're sad</strong><small>There is room for the tears too.</small></button>
+          <button class="open-card" type="button" data-open="tired"><span>🌙</span><strong>Open when you're tired</strong><small>You do not have to earn rest.</small></button>
+          <button class="open-card" type="button" data-open="miss"><span>🫶</span><strong>Open when you miss me</strong><small>I am closer than the screen feels.</small></button>
+          <button class="open-card" type="button" data-open="anxious"><span>🦋</span><strong>Open when you're anxious</strong><small>One breath, then another.</small></button>
+          <button class="open-card" type="button" data-open="doubt"><span>✨</span><strong>Open when you doubt yourself</strong><small>Borrow my eyes for a minute.</small></button>
+          <button class="open-card" type="button" data-open="sleep"><span>☁️</span><strong>Open when you can't sleep</strong><small>A little softness for the night.</small></button>
+          <button class="open-card" type="button" data-open="happy"><span>🌸</span><strong>Open when you're happy</strong><small>I want to celebrate it with you.</small></button>
+          <button class="open-card" type="button" data-open="loved"><span>💗</span><strong>Open when you feel loved</strong><small>Good. Stay right there.</small></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="letter" class="section letter">
+      <div class="inner">
+        <div class="letter-layout">
+          <div class="sticky reveal"><div class="kicker">The part I mean most</div><h2 class="title">My letter to <em>every version of you.</em></h2><p class="copy">Read this on the easy days. Read it twice on the difficult ones.</p></div>
+          <article class="paper reveal">
+            <div class="greeting">My dearest Krethi ma,</div>
+            <div class="letter-body">
+              <p>I do not only love the version of you that smiles for photos. I love the sleepy one, the overthinking one, the one who works too hard, the one who needs silence, the one who laughs until the whole moment changes. I love the parts you show easily and the parts that still need gentleness.</p>
+              <p>You never have to perform happiness for me. You never have to be less complicated, less emotional, less yourself. If the world has ever made you feel like you were too much, let this page keep reminding you: to me, you are not too much. You are the exact amount of magic my life was missing.</p>
+              <p>Since January 14, ordinary days have carried your name. Car rides became memories. A photo became something I could stare at for far too long. A tiny message from you could change the temperature of my whole day.</p>
+              <p>I cannot promise every day will be perfect. I can promise that I will keep trying to be a safe place, that I will listen, that I will learn you again whenever life changes you, and that I will never make you earn the softness you deserve.</p>
+              <p>So come here exactly as you are, bbygurl. Bring your bright days and your heavy ones. Bring your dreams, your fears, your EY stories, your music, your silence, and every future version you are still becoming. I want to know all of them.</p>
+              <p>If love is choosing, then this is me choosing you—in the seconds above, in every hundred-day chapter, and in all the quiet days between them.</p>
+            </div>
+            <div class="sign">With all my heart, Naveesen 💛</div>
+          </article>
+        </div>
+        <div class="reasons reveal">
+          <article class="reason-card"><span>01</span><p>The way your smile makes an ordinary place feel warm.</p></article>
+          <article class="reason-card"><span>02</span><p>Your softness survived things that could have made you hard.</p></article>
+          <article class="reason-card"><span>03</span><p>You are brilliant, hardworking, and still wonderfully silly.</p></article>
+          <article class="reason-card"><span>04</span><p>You make me want to remember the smallest moments.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="play" class="section play">
+      <div class="inner">
+        <div class="reveal"><div class="kicker">A little joy before you go</div><h2 class="title">Catch some love, then <em>take it with you.</em></h2><p class="copy">Because even a forever page should know how to make you smile.</p></div>
+        <div class="play-layout reveal">
+          <article class="panel"><h3>Catch my hearts</h3><p>Twenty seconds. Every heart you catch is another reason I am lucky to know you.</p><div class="game-stats"><div class="stat"><strong id="game-score">0</strong>Caught</div><div class="stat"><strong id="game-time">20</strong>Seconds</div></div><div class="game-area" id="game-area"></div><button class="small-btn" id="game-btn" type="button">Start the game</button><p class="game-msg" id="game-msg"></p></article>
+          <article class="panel surprise"><div><h3>One more thing…</h3><p>Press this whenever you need a tiny burst of love. It is never the same twice in a row.</p></div><button class="surprise-btn" id="surprise-btn" type="button">Love me<br>extra today</button><p class="surprise-out" id="surprise-out">Your surprise is waiting right here.</p></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <figure class="footer-photo reveal"><img src="assets/photos/13-close-smiles.webp" alt="Krethisa and Naveesen smiling close together" loading="lazy"></figure>
+    <h2 class="reveal">Still you. Still us. Still choosing.</h2>
+    <p class="reveal">This page will keep changing because our story will. But one thing here is permanent: Krethisa is loved, completely and without conditions.</p>
+    <div class="footer-mark reveal">Krethisa × Naveesen · Since 14 January 2026 · Always</div>
+  </footer>
+
+  <div class="modal" id="capsule-modal" role="dialog" aria-modal="true" aria-labelledby="capsule-title">
+    <div class="modal-card"><button class="close" type="button" data-close aria-label="Close">×</button><div class="modal-icon" id="capsule-icon">💌</div><h2 id="capsule-title"></h2><p id="capsule-message"></p><figure class="modal-photo"><img id="capsule-photo" src="assets/photos/04-her-flowers.webp" alt=""></figure></div>
   </div>
-</section>
-
-<!-- DAILY MESSAGE -->
-<section id="daily">
-  <h2 class="section-title fade-in">Today's Message 💌</h2>
-  <p class="section-sub fade-in">A new reminder every single day, because you deserve to hear it always</p>
-  <div class="message-card fade-in">
-    <div class="message-day-tag" id="daily-tag">Today</div>
-    <div class="message-icon" id="daily-icon">💖</div>
-    <p class="message-text" id="daily-msg">Loading your message...</p>
-    <p class="message-from">from Naveesen 💛</p>
-    <button class="refresh-btn" onclick="refreshMessage()">✨ Another one?</button>
-    <p id="come-back-msg" style="display:none; margin-top:16px; font-family:'Dancing Script',cursive; font-size:1.1rem; color:var(--lavender);">Come back tomorrow bbygurl 🌸</p>
+  <div class="modal" id="celebration" role="dialog" aria-modal="true" aria-labelledby="celebration-title">
+    <div class="modal-card"><button class="close" type="button" data-close aria-label="Close">×</button><div class="modal-icon">🎉</div><h2 id="celebration-title">200 days of us.</h2><p id="celebration-message"></p><button class="primary" type="button" id="again">Make it rain love</button></div>
   </div>
-</section>
-
-<!-- LETTER -->
-<section id="letter">
-  <h2 class="section-title fade-in" style="text-align:center">A Letter For You 📝</h2>
-  <p class="section-sub fade-in" style="text-align:center">From me, straight to your heart</p>
-  <div class="letter-wrapper fade-in">
-    <div class="letter-paper">
-      <div class="letter-greeting">My dearest Krethi ma,</div>
-      <p>I know some days the world can feel a little too loud, and your past has left marks that make you wonder if people will stay. I want you to know, I see you. Not just the parts you're proud of, but every quiet corner too, and I think it's all beautiful.</p>
-      <br>
-      <p>You are an auditor at EY. Do you know how strong that makes you? Every day you carry precision, responsibility, and professionalism on your shoulders. That's not just a job. That's character. That's YOU, my chellakutty.</p>
-      <br>
-      <p>Since January 14th, 2026, you've been one of the best things in my days. Not because you're perfect, but because you're real, and kind, and you make even the boring moments feel like something worth remembering.</p>
-      <br>
-      <p>I'm not here to judge you, bbygurl. I'm not here to rush you. I'm here because I chose to be, every single day. Whatever your past held, it shaped you, but it does not define what you deserve now. And you deserve softness. You deserve patience. You deserve someone who shows up.</p>
-      <br>
-      <p>And hey, princess, remember when you used to do yoga? That version of you who showed up for herself? She's still in there. She never left. Whenever you're ready to flow again, she'll be right there waiting. No pressure, no timeline. Just love.</p>
-      <br>
-      <p>So whenever you're having a hard day, open this page. Read this. Know that somewhere, Naveesen is thinking about his bby and smiling, grateful you exist.</p>
-      <br>
-      <p>You are not too much. You are not broken. You are someone's favourite person on this planet. 🌸</p>
-      <div class="letter-sign">With all my heart, Naveesen 💛</div>
-    </div>
+  <div class="modal" id="lightbox" role="dialog" aria-modal="true" aria-label="Memory photo">
+    <div class="modal-card lightbox-card"><button class="close" type="button" data-close aria-label="Close">×</button><img id="lightbox-img" src="assets/photos/03-sunlit-us.webp" alt=""><p id="lightbox-caption"></p></div>
   </div>
-</section>
 
-<!-- AFFIRMATIONS -->
-<section id="affirmations">
-  <h2 class="section-title fade-in">You Are... 🌟</h2>
-  <p class="section-sub fade-in">Things Naveesen sees in you, every single day</p>
-  <div class="affirmation-grid fade-in" id="affGrid"></div>
-</section>
+  <script>
+    // The original relationship clock is protected and unchanged.
+    const START = new Date('2026-01-14T00:00:00');
+    function updateCounter() {
+      const now = new Date();
+      const diff = now - START;
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const mins = Math.floor((diff % 3600000) / 60000);
+      const secs = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cnt-days').textContent = days;
+      document.getElementById('cnt-hours').textContent = hours;
+      document.getElementById('cnt-mins').textContent = mins;
+      document.getElementById('cnt-secs').textContent = secs;
+    }
+    updateCounter();
+    setInterval(updateCounter, 1000);
 
-<!-- GAME -->
-<section id="game">
-  <h2 class="section-title fade-in">Catch the Love 💫</h2>
-  <p class="section-sub fade-in">Click all the hearts before they disappear, just like Naveesen chasing your attention 😄</p>
-  <div class="game-stats">
-    <div class="stat-item">
-      <strong id="game-score">0</strong>
-      Hearts Caught
-    </div>
-    <div class="stat-item">
-      <strong id="game-time">20</strong>
-      Seconds Left
-    </div>
-  </div>
-  <div class="game-area" id="gameArea"></div>
-  <button class="game-btn" onclick="startGame()" id="gameBtn" style="margin-top:20px">🎮 Play</button>
-  <p id="game-msg" style="margin-top:16px; color: var(--gold); font-family:'Dancing Script',cursive; font-size:1.3rem;"></p>
-</section>
+    const cursor = document.getElementById('cursor');
+    if (window.matchMedia('(pointer:fine)').matches) {
+      document.addEventListener('mousemove', function(e){ cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px'; });
+      document.querySelectorAll('a,button').forEach(function(el){
+        el.addEventListener('mouseenter',function(){cursor.style.width='34px';cursor.style.height='34px'});
+        el.addEventListener('mouseleave',function(){cursor.style.width='18px';cursor.style.height='18px'});
+      });
+    }
 
-<!-- MEMORIES TIMELINE -->
-<section id="memories">
-  <h2 class="section-title fade-in" style="text-align:center">Our Story So Far 🌈</h2>
-  <p class="section-sub fade-in" style="text-align:center">The moments that matter</p>
-  <div class="timeline fade-in" id="timeline"></div>
-</section>
+    document.body.classList.add('ready');
+    const revealObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('visible');revealObserver.unobserve(entry.target)}});
+    },{threshold:.1});
+    document.querySelectorAll('.reveal').forEach(function(el){revealObserver.observe(el)});
 
-<!-- MOOD CHECK -->
-<section id="mood">
-  <h2 class="section-title fade-in">How Are You Feeling? 🫂</h2>
-  <p class="section-sub fade-in">Whatever the mood, there's something here for you</p>
-  <div class="mood-grid fade-in">
-    <button class="mood-btn" onclick="showMoodResponse('happy')"><span>😊</span>Happy</button>
-    <button class="mood-btn" onclick="showMoodResponse('sad')"><span>😔</span>Sad</button>
-    <button class="mood-btn" onclick="showMoodResponse('tired')"><span>😴</span>Tired</button>
-    <button class="mood-btn" onclick="showMoodResponse('anxious')"><span>😟</span>Anxious</button>
-    <button class="mood-btn" onclick="showMoodResponse('loved')"><span>🥰</span>Loved</button>
-    <button class="mood-btn" onclick="showMoodResponse('meh')"><span>😑</span>Meh</button>
-  </div>
-  <div class="mood-response" id="moodResponse"></div>
-</section>
+    const navLinks=[].slice.call(document.querySelectorAll('.links a,.mobile-nav a'));
+    const navObserver=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){navLinks.forEach(function(link){link.classList.toggle('active',link.getAttribute('href')==='#'+entry.target.id)})}})},{rootMargin:'-40% 0px -50%'});
+    document.querySelectorAll('main section[id]').forEach(function(s){navObserver.observe(s)});
 
-<!-- SURPRISE -->
-<section id="surprise">
-  <h2 class="section-title fade-in">Need a Pick-Me-Up? 🎁</h2>
-  <p class="section-sub fade-in">Press this whenever you need a little something special</p>
-  <button class="surprise-btn fade-in" onclick="doSurprise()">✨ Surprise Me ✨</button>
-  <div class="surprise-output" id="surpriseOut"></div>
-</section>
+    const milestones={
+      100:{icon:'🌱',title:'Our first little forever.',card:'The first hundred days taught me how quickly a person can become part of every ordinary thought.',message:'One hundred days ago, this story was still learning its shape. Since then, your name has found its way into my mornings, my random smiles, and the quiet parts of every day. Thank you for our first hundred, Krethi ma.',photo:'assets/photos/02-car-grey.webp',alt:'Krethisa and Naveesen together'},
+      200:{icon:'💗',title:'Two hundred days of choosing you.',card:'Two hundred days, so many tiny memories, and somehow I still feel lucky every time your name appears.',message:'Two hundred mornings, two hundred little chances to choose you, and a whole future still waiting. I love the story we are building—not only the beautiful pictures, but the patience, the honesty, the ordinary days, and every version of you inside them.',photo:'assets/photos/04-her-flowers.webp',alt:'Krethisa smiling with flowers'},
+      300:{icon:'✨',title:'Three hundred days, still my favourite.',card:'A new chapter is waiting here with another letter, another memory, and another reason to celebrate us.',message:'Three hundred days and somehow you still surprise my heart. If I could collect every tiny moment you changed my day, it would look something like this whole page—only bigger.',photo:'assets/photos/11-orange-us.webp',alt:'Krethisa and Naveesen smiling together'},
+      400:{icon:'🌙',title:'Four hundred sunsets closer.',card:'Another hundred days of learning, laughing, and building a softer place together.',message:'Four hundred days of your voice, your courage, your softness, and the wonderful way you make ordinary life feel worth recording.',photo:'assets/photos/10-cinema-us.webp',alt:'Krethisa and Naveesen at the cinema'},
+      500:{icon:'🌸',title:'Five hundred days of us.',card:'Half a thousand days, and I would still walk into the beginning just to meet you again.',message:'Five hundred days is a big number made from very small things: messages, glances, patience, laughter, and choosing each other again.',photo:'assets/photos/13-close-smiles.webp',alt:'Krethisa and Naveesen smiling'}
+    };
+    function daysTogether(){return Math.max(0,Math.floor((new Date()-START)/86400000))}
+    function fallback(day){return{icon:'💞',title:day+' days, and still growing.',card:'Another hundred days joined our story. This chapter belongs to everything we learned and everything still ahead.',message:day+' days of choosing, learning, and keeping each other close. Whatever this chapter held, I am grateful it held you.',photo:'assets/photos/03-sunlit-us.webp',alt:'Krethisa and Naveesen smiling'}}
+    function fmt(day){const d=new Date(START);d.setDate(d.getDate()+day);return new Intl.DateTimeFormat('en-MY',{day:'numeric',month:'long',year:'numeric'}).format(d)}
+    function roman(n){const map=[[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];let out='';map.forEach(function(pair){while(n>=pair[0]){out+=pair[1];n-=pair[0]}});return out}
+    function renderCapsules(days){
+      const current=Math.floor(days/100)*100,next=current+100,first=Math.max(100,current-100),list=[];
+      for(let d=first;d<=next;d+=100)list.push(d);
+      while(list.length<3)list.unshift(Math.max(100,list[0]-100));
+      const unique=list.filter(function(v,i,a){return a.indexOf(v)===i}).slice(-3),grid=document.getElementById('capsule-grid');grid.innerHTML='';
+      unique.forEach(function(day){
+        const c=milestones[day]||fallback(day),unlocked=days>=day,card=document.createElement('article');
+        card.className='capsule '+(unlocked?'unlocked':'locked');
+        const num=document.createElement('div');num.className='big-day';num.textContent=day;card.appendChild(num);
+        const status=document.createElement('div');status.className='status';status.textContent=unlocked?'♡ Unlocked · '+fmt(day):'🔒 '+(day-days)+' days to go';card.appendChild(status);
+        const content=document.createElement('div'),h=document.createElement('h3'),p=document.createElement('p');h.textContent=c.title;p.textContent=c.card;content.appendChild(h);content.appendChild(p);
+        if(unlocked){const btn=document.createElement('button');btn.type='button';btn.className='capsule-open';btn.textContent='Open this love capsule';btn.addEventListener('click',function(){openCapsule(day)});content.appendChild(btn)}
+        card.appendChild(content);grid.appendChild(card);
+      });
+    }
+    function updateStory(){
+      const days=daysTogether(),current=Math.floor(days/100)*100,next=current+100,cycle=days-current,chapter=Math.floor(days/100)+1,c=milestones[current]||fallback(current||100);
+      document.body.dataset.theme=String(((chapter-1)%3)+1);
+      document.getElementById('milestone-kicker').textContent='Chapter '+roman(chapter)+' · '+(current>=100?'Unlocked':'The beginning');
+      document.getElementById('milestone-title').textContent=current>=100?c.title:'Our first hundred days are blooming.';
+      document.getElementById('milestone-copy').textContent=current>=100?'Our '+current+'-day love capsule is open. The next little piece of forever is already on its way.':'Every day is carrying us toward our first hundred-day love capsule.';
+      document.getElementById('next').textContent=(next-days)+' days until our '+next+'-day chapter';
+      document.getElementById('cycle-days').textContent=cycle;document.getElementById('progress').style.setProperty('--p',(cycle*3.6)+'deg');
+      renderCapsules(days);scheduleCelebration(current);
+    }
 
-<!-- FOOTER -->
-<footer>
-  <div class="star" style="width:3px;height:3px;top:20px;left:15%;animation-delay:0s;"></div>
-  <div class="star" style="width:2px;height:2px;top:30px;left:40%;animation-delay:0.5s;"></div>
-  <div class="star" style="width:4px;height:4px;top:15px;right:20%;animation-delay:1s;"></div>
-  <div class="star" style="width:2px;height:2px;top:45px;right:35%;animation-delay:0.3s;"></div>
-  <div class="heart-row">💛 🌸 💜 🌟 💖</div>
-  <div class="footer-title">Made with forever in mind 🌙</div>
-  <p style="font-family:'Playfair Display',serif; font-style:italic; color:rgba(255,255,255,0.6); margin-top:10px; font-size:1rem;">
-    This page will always be here, just like Naveesen.
-  </p>
-  <div class="footer-sub" style="margin-top:24px;">Krethisa × Naveesen • Since Jan 14 • Always 💛</div>
-</footer>
+    const notes=[
+      ['🌸','You make ordinary days feel like something I should save forever.'],['💛','You never have to be perfect to be deeply, safely, completely loved.'],
+      ['✨','The softness in you is not weakness. It is one of the bravest things about you.'],['🌙','If today feels heavy, let me hold the reminder: you do not have to carry everything alone.'],
+      ['🦋','You are allowed to grow slowly, change your mind, rest, and become someone new. I will learn that version too.'],['💗','Somewhere in this exact moment, Naveesen is very grateful that the universe made a Krethisa.'],
+      ['🌷','You are not difficult to love. You simply deserve a love gentle enough to understand you.'],['🌟','Your smile still changes the entire mood of my day. That is a ridiculous amount of power, bbygurl.'],
+      ['🫂','Come as you are today—happy, tired, quiet, messy. None of those versions get less love.'],['☀️','You are the warm part of so many memories I never knew I would treasure this much.'],
+      ['💌','Being loved by me is not a test you can fail. There is no performance required here.'],['🌺','I hope you see yourself one day the way I see you: rare, resilient, brilliant, and so easy to adore.']
+    ];
+    const reasons=['the warmth in your smile','how deeply you feel things','your quiet strength','the silly faces you make','how hard you work','your kind heart','the way you make a car ride memorable','your courage to stay soft','your beautiful curly hair','how real you are with me','the light in your eyes','every version of you I keep discovering'];
+    const photoList=[['assets/photos/08-her-city-lights.webp','Krethisa smiling under city lights'],['assets/photos/04-her-flowers.webp','Krethisa smiling with flowers'],['assets/photos/03-sunlit-us.webp','Krethisa and Naveesen in warm sunlight'],['assets/photos/11-orange-us.webp','Krethisa and Naveesen smiling'],['assets/photos/13-close-smiles.webp','Krethisa and Naveesen smiling close together'],['assets/photos/10-cinema-us.webp','Krethisa and Naveesen at the cinema'],['assets/photos/01-car-red.webp','A tender selfie of Krethisa and Naveesen']];
+    const heroNotes=['You are still my favourite hello.','I would choose you in every chapter.','My safest thought has your name.','Still you. Still us. Still grateful.','Every version of you is welcome here.','You make ordinary feel worth keeping.'];
+    const now=new Date(),dayOfYear=Math.floor((now-new Date(now.getFullYear(),0,0))/86400000);let noteOffset=0;
+    function daily(index){const n=notes[index%notes.length];document.getElementById('daily-icon').textContent=n[0];document.getElementById('daily-message').textContent=n[1];document.getElementById('daily-reason').textContent='Today’s reason: '+reasons[index%reasons.length]+'.'}
+    const dp=photoList[dayOfYear%photoList.length];document.getElementById('daily-photo').src=dp[0];document.getElementById('daily-photo').alt=dp[1];
+    document.getElementById('hero-note').textContent=heroNotes[dayOfYear%heroNotes.length];document.getElementById('today-day').textContent=now.getDate();document.getElementById('today-month').textContent=new Intl.DateTimeFormat('en-MY',{month:'long',weekday:'long'}).format(now);document.getElementById('daily-tag').textContent=new Intl.DateTimeFormat('en-MY',{weekday:'long'}).format(now)+'’s love note';daily(dayOfYear);
+    document.getElementById('another-note').addEventListener('click',function(){noteOffset++;daily(dayOfYear+noteOffset*5);this.textContent='Okay, one more'});
 
-<script>
-// =====================
-// CURSOR
-// =====================
-const cursor = document.getElementById('cursor');
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-});
+    const openMessages={
+      sad:['🌧️','Come here, chellakutty','You do not have to turn sadness into a lesson right now. You are allowed to feel it. Let today be soft and small. Nothing about a hard day makes you harder to love.'],
+      tired:['🌙','Rest is allowed, princess','You work so hard and carry more than people see. Put it down for a while. Rest is not laziness. Tonight, being gentle with yourself is enough.'],
+      miss:['🫶','I am missing you too','Put your hand on this screen for one second. Mine would be right on the other side if it could. Distance cannot undo the place you have in my day.'],
+      anxious:['🦋','One breath at a time','In for four. Hold for four. Out for six. You only need to handle this single breath, then the next. You are safe, you are not alone, and this feeling will move.'],
+      doubt:['✨','Borrow my eyes','I see a woman who is intelligent, resilient, caring, beautiful, and still trying even when she is exhausted. Your doubts are loud, but they are not more truthful than the person I see.'],
+      sleep:['☁️','Let the day end','You have done enough for today. Nothing needs to be solved under this pillow. Close your eyes, bbygurl. You are loved even while you rest.'],
+      happy:['🌸','Look at my happy girl','Stay in this feeling without waiting for something to take it away. You deserve joy that does not need an apology. Knowing you are happy makes my whole heart lighter.'],
+      loved:['💗','Good. Because you are.','Deeply, deliberately, and exactly as you are. Not only when you are easy, not only when you are smiling, and not because you earned it.']
+    };
+    document.querySelectorAll('.open-card').forEach(function(btn){btn.addEventListener('click',function(){const d=openMessages[btn.dataset.open];document.querySelectorAll('.open-card').forEach(function(x){x.classList.remove('active')});btn.classList.add('active');document.getElementById('open-icon').textContent=d[0];document.getElementById('open-title').textContent=d[1];document.getElementById('open-message').textContent=d[2];if(innerWidth<1080)document.getElementById('open-output').scrollIntoView({behavior:'smooth',block:'center'})})});
 
-// =====================
-// FLOATING HEARTS
-// =====================
-const heartEmojis = ['💖','💗','💓','💞','🌸','✨','💛','💜','🌟','🩷'];
-const bg = document.getElementById('heartsBg');
-function spawnHeart() {
-  const el = document.createElement('div');
-  el.className = 'heart-float';
-  el.textContent = heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
-  el.style.left = Math.random()*100 + 'vw';
-  el.style.fontSize = (0.8 + Math.random()*1.4) + 'rem';
-  const dur = 8 + Math.random()*10;
-  el.style.animationDuration = dur + 's';
-  el.style.animationDelay = (Math.random()*5) + 's';
-  bg.appendChild(el);
-  setTimeout(() => el.remove(), (dur+5)*1000);
-}
-for(let i=0;i<18;i++) spawnHeart();
-setInterval(spawnHeart, 1800);
+    let lastFocus=null;
+    function openModal(modal){lastFocus=document.activeElement;modal.classList.add('open');document.body.style.overflow='hidden';modal.querySelector('.close').focus()}
+    function closeModal(modal){modal.classList.remove('open');document.body.style.overflow='';if(lastFocus)lastFocus.focus()}
+    document.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',function(){closeModal(b.closest('.modal'))})});
+    document.querySelectorAll('.modal').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)closeModal(m)})});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'){const m=document.querySelector('.modal.open');if(m)closeModal(m)}});
+    function petals(amount){const icons=['🌸','💗','✨','💛','🌷'];for(let i=0;i<amount;i++){const p=document.createElement('span');p.className='petal';p.textContent=icons[Math.floor(Math.random()*icons.length)];p.style.left=Math.random()*100+'vw';p.style.fontSize=(.7+Math.random()*1.4)+'rem';p.style.setProperty('--time',(3.2+Math.random()*3.2)+'s');p.style.setProperty('--drift',(-80+Math.random()*160)+'px');p.style.animationDelay=Math.random()*.8+'s';document.body.appendChild(p);setTimeout(function(){p.remove()},7600)}}
+    function openCapsule(day){const c=milestones[day]||fallback(day);document.getElementById('capsule-icon').textContent=c.icon;document.getElementById('capsule-title').textContent=c.title;document.getElementById('capsule-message').textContent=c.message;document.getElementById('capsule-photo').src=c.photo;document.getElementById('capsule-photo').alt=c.alt;openModal(document.getElementById('capsule-modal'));petals(22)}
+    function scheduleCelebration(current){if(current<100)return;let seen=0;try{seen=Number(localStorage.getItem('krethisaMilestoneSeen')||0)}catch(e){}if(seen>=current)return;const c=milestones[current]||fallback(current);document.getElementById('celebration-title').textContent=current+' days of us.';document.getElementById('celebration-message').textContent=c.message;setTimeout(function(){openModal(document.getElementById('celebration'));petals(42);try{localStorage.setItem('krethisaMilestoneSeen',String(current))}catch(e){}},1500)}
+    document.getElementById('again').addEventListener('click',function(){petals(55)});
+    document.querySelectorAll('[data-img]').forEach(function(btn){btn.addEventListener('click',function(){const im=document.getElementById('lightbox-img');im.src=btn.dataset.img;im.alt=btn.querySelector('img').alt;document.getElementById('lightbox-caption').textContent=btn.dataset.caption;openModal(document.getElementById('lightbox'))})});
 
-// =====================
-// COUNTER
-// =====================
-const START = new Date('2026-01-14T00:00:00');
-function updateCounter() {
-  const now = new Date();
-  const diff = now - START;
-  const days = Math.floor(diff / 86400000);
-  const hours = Math.floor((diff % 86400000) / 3600000);
-  const mins = Math.floor((diff % 3600000) / 60000);
-  const secs = Math.floor((diff % 60000) / 1000);
-  document.getElementById('cnt-days').textContent = days;
-  document.getElementById('cnt-hours').textContent = hours;
-  document.getElementById('cnt-mins').textContent = mins;
-  document.getElementById('cnt-secs').textContent = secs;
-}
-updateCounter();
-setInterval(updateCounter, 1000);
+    const gameArea=document.getElementById('game-area'),gameBtn=document.getElementById('game-btn');let active=false,score=0,left=20,heartTimer=null,clockTimer=null;
+    function clearTimers(){if(heartTimer)clearInterval(heartTimer);if(clockTimer)clearInterval(clockTimer);heartTimer=clockTimer=null}
+    function spawnHeart(){if(!active)return;const h=document.createElement('button');h.type='button';h.className='game-heart';h.setAttribute('aria-label','Catch this heart');h.textContent=['💗','💖','💛','🌸'][Math.floor(Math.random()*4)];h.style.left=(4+Math.random()*84)+'%';h.style.top=(5+Math.random()*78)+'%';h.addEventListener('click',function(){if(!active)return;score++;document.getElementById('game-score').textContent=score;h.remove()});gameArea.appendChild(h);setTimeout(function(){h.remove()},2100)}
+    function endGame(){active=false;clearTimers();gameArea.innerHTML='';gameBtn.textContent='Play again';document.getElementById('game-msg').textContent=score+' hearts caught—and somehow still fewer than the reasons you are loved. 💗'}
+    function startGame(){clearTimers();gameArea.innerHTML='';score=0;left=20;active=true;document.getElementById('game-score').textContent='0';document.getElementById('game-time').textContent='20';document.getElementById('game-msg').textContent='';gameBtn.textContent='Restart';spawnHeart();heartTimer=setInterval(spawnHeart,720);clockTimer=setInterval(function(){left--;document.getElementById('game-time').textContent=left;if(left<=0)endGame()},1000)}
+    gameBtn.addEventListener('click',startGame);
 
-// =====================
-// DAILY MESSAGES
-// =====================
-const messages = [
-  { icon:'🌸', text:'You are not too much, bbygurl. You are exactly enough, and honestly, the world could use a little more of you in it.' },
-  { icon:'💛', text:'Being an auditor at EY while carrying your kind heart? That is not a contradiction, chellakutty. That is called being extraordinary.' },
-  { icon:'✨', text:'The fact that you are still gentle after everything you have been through? That is one of the bravest things a person can be, princess.' },
-  { icon:'🌙', text:'On hard days, remember: Naveesen did not just stumble into talking to you. He stayed. Because you are worth staying for, bby.' },
-  { icon:'🦋', text:'Your past tried to make you believe you are too difficult to love. Your past was wrong, krethi ma.' },
-  { icon:'💜', text:'You deserve someone who chooses you on easy days AND hard days. Good news, bbygurl: that is exactly what is happening.' },
-  { icon:'🌟', text:'You work hard, you feel deeply, and you love carefully. That is not weakness, princess. That is wisdom earned through experience.' },
-  { icon:'🫂', text:'Healing is not linear, and that is okay, chellakutty. You are allowed to have bad days and still be someone\'s favourite person.' },
-  { icon:'🌈', text:'Krethi ma, you are the kind of person who makes a room warmer just by being in it. Do not let anyone ever dull that.' },
-  { icon:'💖', text:'You do not have to be perfect to be loved, bby. You just have to be YOU, and you are doing great at that.' },
-  { icon:'🌺', text:'Thank you for existing. Genuinely. The world and one very lucky guy named Naveesen is better because of you.' },
-  { icon:'⭐', text:'Strong women are not born. They are made through storms they survived. You are living proof of that, princess.' },
-  { icon:'🎀', text:'Your softness is not a weakness, bbygurl. It takes more courage to stay tender-hearted than to build walls. You chose courage.' },
-  { icon:'🌻', text:'Just a reminder from Naveesen: he is thinking about his chellakutty right now and smiling. Yes, right now.' },
-  { icon:'💫', text:'You deserve gentleness. You deserve patience. You deserve someone who never makes you feel like a burden. You have all of that, bby.' },
-  { icon:'🩷', text:'EY has a great auditor. But more importantly, Naveesen has an even greater person right here. Genuinely lucky him.' },
-  { icon:'🌷', text:'The version of you that worries she is too much? She is just the part that got hurt before. The real you is magic, krethi ma.' },
-  { icon:'💝', text:'You are allowed to heal at your own pace. No rush, princess. Naveesen is not going anywhere.' },
-  { icon:'🦄', text:'Being vulnerable is terrifying, and you do it anyway, chellakutty. That kind of bravery deserves all the good things life has to offer.' },
-  { icon:'🍀', text:'Some people search forever for a connection like this. You found it, bbygurl. That is not luck, that is the universe saying you deserve it.' },
-  { icon:'🎶', text:'You are a Hip Hop Tamizha girlie with main character energy, bby. Do not let anyone ever take that vibe from you.' },
-  { icon:'🌠', text:'Past relationships did not reflect your worth. They reflected their limitations. YOU are the constant. YOU are the prize, princess.' },
-  { icon:'🫶', text:'Every time you doubt yourself, Naveesen is over here listing all the reasons you are incredible, chellakutty. The list is long.' },
-  { icon:'🌙', text:'The way you love, carefully, thoughtfully, genuinely, is a gift. And Naveesen knows exactly how rare that is, bby.' },
-  { icon:'💌', text:'No judgment here. No harsh words. Just warmth, patience, and someone who thinks you hung the moon. Always, krethi ma.' },
-  { icon:'🎠', text:'Your resilience is breathtaking. The way you show up for life even when it has been unkind to you? Genuinely inspiring, bbygurl.' },
-  { icon:'🌸', text:'You are a whole person, complicated, beautiful, layered. And every single layer? Worth knowing, princess.' },
-  { icon:'💛', text:'Hey, Krethi ma. Just wanted to say: you are doing amazing. Not for anyone else. Just... you are.' },
-  { icon:'🌟', text:'Someone out there whose name starts with N thinks you are one of the best things to ever happen to his January, bby.' },
-  { icon:'💖', text:'The trauma from before is not who you are. It is something that happened to you. There is a massive difference, chellakutty. You are so much more.' },
-  { icon:'🎊', text:'Today\'s fact: you are the kind of rare that people write about in novels and still cannot quite capture. That is you, bbygurl.' },
-  { icon:'🧘', text:'Remember when you used to do yoga, princess? That version of you who showed up for herself every single day? She is still in you. She never left.' },
-  { icon:'🎵', text:'A Hip Hop Tamizha fan, an Surya fan, an EY auditor, and the cutest person Naveesen knows. You are genuinely one of a kind, krethi ma.' },
-  { icon:'🌺', text:'Surya films always have that one character who is quietly the strongest person in the room. Remind you of anyone, bby? Yeah. You.' },
-  { icon:'💃', text:'The girl who vibes to Hip Hop Tamizha is the same girl who handles serious work at EY. Both of those are you, chellakutty. And both are incredible.' },
-  { icon:'🌻', text:'Naveesen did not just want someone to talk to. He wanted YOU specifically, princess. Big difference. And he would choose you again every single day.' },
-  { icon:'🫂', text:'You are allowed to rest, bbygurl. You are allowed to be tired. You are allowed to need love. That is not weakness. That is being human.' },
-  { icon:'💫', text:'Krethi ma, you walked into Naveesen\'s life and made everything brighter without even trying. That is just the effect you have on people.' },
-  { icon:'🌷', text:'The fact that you still try, still feel, still love even after being hurt before? That takes an enormous amount of heart, bby. You have so much of it.' },
-  { icon:'🎶', text:'Every Hip Hop Tamizha song you love has energy, emotion, and soul. Just like you, chellakutty. You are the whole playlist.' },
-  { icon:'⭐', text:'Being a cutiepie AND being brilliant at your job? Princess, you are not playing fair and we love it.' },
-  { icon:'🌙', text:'At the end of every long day at EY, remember: there is someone who is genuinely excited that you exist. That is Naveesen, bbygurl. Always.' },
-];
+    const surprises=['Breaking news: Naveesen just thought about his bby and smiled again.','You are doing better than the worried voice in your head is telling you.','Your smile has been promoted to favourite sight in the universe.','Plot twist: you were never too much. You were simply waiting for safer love.','Today’s award goes to Krethisa—for being brilliant, beautiful, and wonderfully herself.','You are someone’s favourite notification, favourite face, and favourite part of January.','Go drink some water, rest your shoulders, and remember that you do not have to earn softness.','The universe called. It said the girl reading this deserves a forehead kiss and a very good snack.','If I had to choose all over again, I would still look for the girl with your exact heart.'];let last=-1;
+    document.getElementById('surprise-btn').addEventListener('click',function(){let i;do{i=Math.floor(Math.random()*surprises.length)}while(i===last);last=i;document.getElementById('surprise-out').textContent=surprises[i];petals(18)});
 
-function getDaily() {
-  const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
-  return messages[dayOfYear % messages.length];
-}
-
-let hasClickedOnce = false;
-function refreshMessage() {
-  if (hasClickedOnce) {
-    document.getElementById('come-back-msg').style.display = 'block';
-    return;
-  }
-  hasClickedOnce = true;
-  const used = getDaily();
-  let pick;
-  do { pick = messages[Math.floor(Math.random()*messages.length)]; } while(pick.text === used.text);
-  document.getElementById('daily-icon').textContent = pick.icon;
-  document.getElementById('daily-msg').textContent = pick.text;
-  document.getElementById('daily-tag').textContent = '✨ For You';
-}
-
-// Set daily on load
-const todayMsg = getDaily();
-document.getElementById('daily-icon').textContent = todayMsg.icon;
-document.getElementById('daily-msg').textContent = todayMsg.text;
-const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-document.getElementById('daily-tag').textContent = '💛 ' + days[new Date().getDay()];
-
-// =====================
-// AFFIRMATIONS
-// =====================
-const affirmations = [
-  { icon:'💪', color:'#fff0f7', text:'Stronger than she knows' },
-  { icon:'✨', color:'#f5e6ff', text:'Beautifully and uniquely herself' },
-  { icon:'🧠', color:'#e6f0ff', text:'Brilliant at what she does' },
-  { icon:'💛', color:'#fffbe6', text:'Deeply worthy of love' },
-  { icon:'🌸', color:'#ffe6ee', text:'Kind in a world that\'s harsh' },
-  { icon:'🌟', color:'#e6ffe6', text:'A genuine light in the room' },
-  { icon:'🫂', color:'#ffe6f5', text:'Safe to be fully herself' },
-  { icon:'🦋', color:'#e6f5ff', text:'Always growing, always blooming' },
-  { icon:'💖', color:'#fff0f7', text:'Loved exactly as she is' },
-  { icon:'🔥', color:'#fff3e6', text:'Unstoppable when she sets her mind' },
-  { icon:'🎀', color:'#f9e6ff', text:'Soft strength, every single day' },
-  { icon:'🌈', color:'#e6fff9', text:'Brings colour to every moment' },
-];
-
-const grid = document.getElementById('affGrid');
-affirmations.forEach((a, i) => {
-  const div = document.createElement('div');
-  div.className = 'affirmation-tile';
-  div.style.background = a.color;
-  div.style.animationDelay = (i*0.07) + 's';
-  div.innerHTML = `<div class="tile-icon">${a.icon}</div><div>${a.text}</div>`;
-  grid.appendChild(div);
-});
-
-// =====================
-// GAME
-// =====================
-let gameActive = false, gameScore = 0, gameInterval, heartInterval, timerInterval, timeLeft = 20;
-
-function startGame() {
-  document.getElementById('gameBtn').textContent = '🔄 Restart';
-  document.getElementById('game-msg').textContent = '';
-  gameArea.innerHTML = '';
-  gameScore = 0; timeLeft = 20; gameActive = true;
-  document.getElementById('game-score').textContent = 0;
-  document.getElementById('game-time').textContent = 20;
-
-  if(gameInterval) clearInterval(gameInterval);
-  if(timerInterval) clearInterval(timerInterval);
-
-  heartInterval = setInterval(spawnGameHeart, 800);
-  timerInterval = setInterval(() => {
-    timeLeft--;
-    document.getElementById('game-time').textContent = timeLeft;
-    if(timeLeft <= 0) endGame();
-  }, 1000);
-}
-
-function catchHeart(h, area) {
-  if(!gameActive) return;
-  gameScore++;
-  document.getElementById('game-score').textContent = gameScore;
-  const pop = document.createElement('div');
-  pop.style.cssText = `position:absolute;font-size:1.2rem;color:#ffd166;font-weight:bold;pointer-events:none;animation:floatUp 1s ease both;left:${h.style.left};top:${h.style.top}`;
-  pop.textContent = '+1';
-  area.appendChild(pop);
-  setTimeout(()=>pop.remove(),1000);
-  h.remove();
-}
-
-function spawnGameHeart() {
-  if(!gameActive) return;
-  const area = document.getElementById('gameArea');
-  const h = document.createElement('div');
-  h.className = 'game-heart';
-  h.textContent = heartEmojis[Math.floor(Math.random()*6)];
-  h.style.left = (5 + Math.random()*80) + '%';
-  h.style.top = (5 + Math.random()*80) + '%';
-  h.onclick = () => catchHeart(h, area);
-  h.ontouchstart = (e) => { e.preventDefault(); catchHeart(h, area); };
-  area.appendChild(h);
-  setTimeout(()=>{ if(h.parentNode) h.remove(); }, 2500);
-}
-
-const gameArea = document.getElementById('gameArea');
-
-function endGame() {
-  gameActive = false;
-  clearInterval(heartInterval);
-  clearInterval(timerInterval);
-  gameArea.innerHTML = '';
-  const msgs = [
-    `${gameScore} hearts caught! That's exactly how many times a day Naveesen thinks of you. 💛`,
-    `${gameScore} hearts! Every single one = a reason you\'re special. And there are many more. ✨`,
-    `You caught ${gameScore} hearts 🌸 Imagine if catching real love was this easy — well, for Naveesen it was!`,
-    `${gameScore} love points earned! You\'re already a winner, Krethisa 💖`,
-  ];
-  document.getElementById('game-msg').textContent = msgs[Math.floor(Math.random()*msgs.length)];
-  document.getElementById('gameBtn').textContent = '🎮 Play Again';
-}
-
-// =====================
-// TIMELINE
-// =====================
-const timelineData = [
-  { date:'January 14, 2026', icon:'💫', text:'The beginning. Naveesen met Krethisa — and suddenly January got a whole lot better.' },
-  { date:'The early days 🌱', icon:'🌸', text:'Late night talks, learning each other, finding out that she\'s even more amazing than first impressions suggested.' },
-  { date:'Getting to know you 💛', icon:'✨', text:'An EY auditor, a cutiepie, and the most interesting person — all wrapped in one. Naveesen couldn\'t believe his luck.' },
-  { date:'Right now 🌟', icon:'💖', text:'Still here. Still thinking about you. Still grateful every single day. This story is just getting started.' },
-  { date:'Forever 🌙', icon:'🦋', text:'The plan is simple: keep showing up, keep being kind, keep building something beautiful. Together.' },
-];
-
-const tl = document.getElementById('timeline');
-timelineData.forEach((item, i) => {
-  const div = document.createElement('div');
-  div.className = 'timeline-item fade-in';
-  div.innerHTML = `
-    <div class="timeline-dot">${item.icon}</div>
-    <div class="timeline-card">
-      <div class="timeline-date">${item.date}</div>
-      <div class="timeline-text">${item.text}</div>
-    </div>`;
-  tl.appendChild(div);
-});
-
-// =====================
-// MOOD
-// =====================
-const moodData = {
-  happy: { emoji:'😊', msg:'YES bbygurl. Hold onto this feeling. You deserve every ounce of happiness you are feeling right now. Naveesen loves seeing you happy, it is literally one of his favourite things. 💛' },
-  sad: { emoji:'🫂', msg:'Hey, chellakutty. Come here. You are allowed to feel sad. It does not mean anything is wrong with you. It just means you are human. Naveesen is not going anywhere, even on the hard days, especially on the hard days. 🌸' },
-  tired: { emoji:'😴', msg:'You work SO hard, princess. An auditor\'s life is no joke, and you carry so much. Rest is not laziness, it is self-love. Close your eyes for a bit. You have earned it. 💤' },
-  anxious: { emoji:'💜', msg:'Breathe, bby. In for 4... hold for 4... out for 4. You have survived every hard moment before this one. Your anxiety is lying to you, you are not in danger, you are loved, and this too shall pass. 🌙' },
-  loved: { emoji:'🥰', msg:'Good. Because you ARE loved, krethi ma. Deeply. Genuinely. Not because you are perfect, because you are YOU. And that is more than enough for Naveesen. 💖' },
-  meh: { emoji:'🌈', msg:'Meh days are valid, bbygurl. You do not have to be "on" all the time. Even on meh days you are still Naveesen\'s favourite person, and this page still belongs to you. Go get a snack. ✨' },
-};
-
-function showMoodResponse(mood) {
-  const r = document.getElementById('moodResponse');
-  const d = moodData[mood];
-  r.innerHTML = `<div style="font-size:2rem;margin-bottom:12px">${d.emoji}</div>${d.msg}`;
-  r.style.display = 'block';
-  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-}
-
-// =====================
-// SURPRISE
-// =====================
-const surprises = [
-  '🌸 Did you know? You are literally someone\'s favourite thought today, bbygurl.',
-  '💛 Surprise: You are doing better than you think. Seriously, chellakutty.',
-  '✨ Breaking news: Naveesen just thought about his bby and smiled.',
-  '💖 Fun fact: you are the highlight of someone\'s entire day, princess.',
-  '🌟 Today\'s reminder: your smile? It is someone\'s whole world, krethi ma.',
-  '🦋 Surprise surprise, you are incredible, bbygurl. How does that feel?',
-  '🎊 Plot twist: you were never too much. They were just not enough.',
-  '💜 Special announcement: you are so deeply loved right now, chellakutty.',
-  '🌺 The universe called. It said you are doing great, princess.',
-  '🎈 Surprise! The best is still ahead. And you deserve all of it, bby.',
-  '🌙 Hey guess what? You made it through every hard day so far. That is a 100% success rate, bbygurl.',
-  '💌 This is your sign to eat something yummy, rest a little, and remember how wonderful you are, krethi ma.',
-  '🎀 Spoiler: Naveesen is very, very glad you exist.',
-  '⭐ Today\'s award goes to Krethisa, for being herself and making it look effortless.',
-  '🍀 You are the kind of rare that people are lucky to even know, chellakutty.',
-  '🎵 A Hip Hop Tamizha fan with a heart of gold. That\'s our bbygurl.',
-  '🌸 Surya has great taste in films. You have great taste in everything. Coincidence? Maybe not, princess.',
-  '🧘 Wherever your yoga mat is right now, it misses you. And so does the version of you that always shows up for herself, bby.',
-];
-
-function doSurprise() {
-  const out = document.getElementById('surpriseOut');
-  out.style.opacity = '0';
-  setTimeout(() => {
-    out.textContent = surprises[Math.floor(Math.random()*surprises.length)];
-    out.style.opacity = '1';
-  }, 200);
-
-  // Confetti burst
-  for(let i=0;i<20;i++) {
-    const el = document.createElement('div');
-    el.style.cssText = `position:fixed;font-size:${1+Math.random()*1.5}rem;left:${Math.random()*100}vw;top:${40+Math.random()*30}vh;pointer-events:none;z-index:9998;animation:floatUp ${2+Math.random()*2}s ease both`;
-    el.textContent = heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
-    document.body.appendChild(el);
-    setTimeout(()=>el.remove(),4000);
-  }
-}
-
-// =====================
-// SCROLL FADE-IN
-// =====================
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.12 });
-document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
-
-</script>
+    updateStory();setInterval(updateStory,60000);
+  </script>
 </body>
 </html>
